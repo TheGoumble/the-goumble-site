@@ -1,0 +1,76 @@
+/* ABOUT — planet placeholder, bio */
+/* ---------- ABOUT / PLANET ----------
+   #planet is a stand-in for a custom planet graphic (image/SVG) that
+   will replace this CSS circle later. Styled as a rough placeholder —
+   dashed border, flat striped fill, labeled — so it's obvious this spot
+   still needs the real asset. Swap the background (and drop the ::after
+   label) once that graphic exists; #planetRing and #planetContent (bio
+   text, headshot, icon) are real and don't need to change. */
+#planet {
+  position: relative;
+  width: min(480px, 85vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(var(--accent2-rgb), 0.08) 0 10px,
+    rgba(255, 255, 255, 0.03) 10px 20px
+  );
+  border: 2px dashed rgba(var(--accent2-rgb), 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#planet::after {
+  content: "planet graphic — placeholder";
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(var(--accent2-rgb), 0.6);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+#planetRing {
+  position: absolute;
+  width: 135%;
+  height: 32%;
+  border: 2px solid rgba(var(--accent-rgb), 0.3);
+  border-radius: 50%;
+  transform: rotate(-12deg);
+  pointer-events: none;
+}
+
+#planetContent {
+  width: 72%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+#headshot {
+  width: 84px; height: 84px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent);
+  background: #222;
+}
+
+#icon {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: #333;
+}
+
+#bioText {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.6;
+}

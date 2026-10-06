@@ -6,9 +6,6 @@ function loadData(onReady) {
       document.getElementById('heroName').textContent = data.profile.name;
       document.getElementById('heroRole').textContent = data.profile.role;
       document.getElementById('bioText').textContent = data.profile.bio;
-      document.getElementById('navLogoText').textContent =
-        (data.site.title || 'logo').split(' ')[0].toLowerCase();
-
       const headshotEl = document.getElementById('headshot');
       const iconEl = document.getElementById('icon');
       headshotEl.onerror = () => { headshotEl.style.display = 'none'; };

@@ -25,28 +25,34 @@
    ============================================================ */
 
 function createDriftZone(hero, anchor) {
-  const zone = { centerX: 0, centerY: 0, radiusX: 0, radiusY: 0 };
+  const EDGE_MARGIN = 40;   // soft-wall inset from the page's top border
+  const CHAR_RADIUS = 23;   // half the character's 46px size
+  const zone = { centerX: 0, centerY: 0, radiusX: 0, radiusY: 0, minY: 0 };
 
   function update() {
     const heroRect = hero.getBoundingClientRect();
 
-    const top = anchor.y + 60;             // near the ship
-    const bottom = heroRect.height - 40;   // down to near the bottom of the hero section
+    // hero-local y of the very top of the page (the hero starts below the ship)
+    const pageTop = -(heroRect.top + window.scrollY);
+    const top = pageTop + EDGE_MARGIN;     // walled at the page's top border
+    const bottom = heroRect.height - 40;
 
     zone.centerX = heroRect.width * 0.5;
     zone.centerY = (top + bottom) / 2;
-    zone.radiusX = heroRect.width * 0.46;  // nearly full width
-    zone.radiusY = (bottom - top) / 2;     // nearly full height below the ship
+    zone.radiusX = heroRect.width * 0.46;
+    zone.radiusY = (bottom - top) / 2;
+    zone.minY = pageTop + CHAR_RADIUS + 4; // hard floor, even while dragging
   }
 
   function distanceFraction(pos) {
     const nx = (pos.x - zone.centerX) / zone.radiusX;
     const ny = (pos.y - zone.centerY) / zone.radiusY;
-    const normDist = Math.sqrt(nx * nx + ny * ny);
+    const ax = Math.abs(nx), ay = Math.abs(ny);
+    const normDist = Math.max(ax, ay);
     return {
       normDist,
-      dirX: normDist > 0 ? nx / normDist : 0,
-      dirY: normDist > 0 ? ny / normDist : 0
+      dirX: ax >= ay ? Math.sign(nx) : 0,
+      dirY: ay > ax ? Math.sign(ny) : 0
     };
   }
 

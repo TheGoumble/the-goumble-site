@@ -1,0 +1,97 @@
+/* NAV — ship nav + mobile dropdown */
+/* ---------- NAV ---------- */
+#shipnav {
+  position: relative;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(640px, 92vw);
+  z-index: 50;
+  pointer-events: none;
+}
+
+#shipSvg {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 0 10px rgba(var(--accent-rgb), 0.25));
+}
+
+#navLinks {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+
+.nav-link {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: var(--text-dim);
+  cursor: pointer;
+  background: rgba(var(--panel-rgb), 0.4);
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
+  transition: all 0.25s ease;
+  text-decoration: none;
+  text-align: center;
+  padding: 2px;
+  pointer-events: auto;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--bg-deep);
+  background: var(--accent);
+  box-shadow: 0 0 14px var(--accent);
+  border-color: var(--accent);
+}
+
+#navToggle {
+  display: none;
+  position: absolute;
+  top: 8px; right: 8px;
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 60;
+  pointer-events: auto;
+}
+
+/* mobile: the ship is hidden and the nav becomes a dropdown menu */
+@media (max-width: 700px) {
+  #shipSvg { display: none; }
+  #shipnav {
+    background: rgba(var(--panel-rgb), 0.85);
+    border: 1px solid rgba(var(--accent-rgb), 0.25);
+    border-radius: 16px;
+    padding: 10px 16px;
+    backdrop-filter: blur(6px);
+  }
+  #navLinks { position: static; display: flex; flex-direction: column; gap: 10px; }
+  #navLinks.closed { display: none; }
+  .nav-link {
+    position: static;
+    transform: none;
+    width: auto; height: auto;
+    border-radius: 8px;
+    background: none;
+    border: none;
+    padding: 6px 0;
+    text-align: left;
+    font-size: 13px;
+  }
+  .nav-link:hover, .nav-link.active {
+    background: none;
+    box-shadow: none;
+    color: var(--accent);
+  }
+  #navToggle { display: block; }
+}

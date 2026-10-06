@@ -54,12 +54,24 @@ function initTether() {
   function animate() {
     const t = Date.now() / 1000;
 
+    // recover if a bad value ever slips in (prevents a permanently broken rope)
+    if (!Number.isFinite(charPos.x) || !Number.isFinite(charPos.y)) {
+      const r = hero.getBoundingClientRect();
+      charPos.x = r.width * 0.5;
+      charPos.y = r.height * 0.3;
+      velocity.x = 0; velocity.y = 0;
+    }
+
     anchorTracker.update();
     driftZone.update();
 
     if (!dragController.isDragging()) {
       ropePhysics.stepCharacter();
     }
+
+    // wall at the page's top border, including while being dragged
+    const minY = driftZone.zone.minY;
+    if (Number.isFinite(minY)) charPos.y = Math.max(charPos.y, minY);
 
     character.style.transform = `translate(${charPos.x - 23}px, ${charPos.y - 23}px)`;
 

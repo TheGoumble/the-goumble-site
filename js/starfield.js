@@ -1,8 +1,13 @@
 /* ============================================================
    STARFIELD
    ------------------------------------------------------------
-   Owns: the full-page background canvas (#starfield) — the
-   twinkling dots behind everything, plus random shooting stars.
+   Owns: the background canvas (#starfield) — the twinkling dots
+   behind everything, plus random shooting stars (hero only).
+
+   Stars scroll with the page, with parallax: the canvas stays
+   pinned to the screen, but the star layer is a tile (about 1.75
+   screens tall) that slides at PARALLAX x the page's scroll speed
+   and wraps around, so a short tile covers a page of any length.
 
    Moves on its own: runs continuously via requestAnimationFrame,
    independent of any other section. Doesn't touch nav, hero,
@@ -19,15 +24,34 @@ function initStarfield() {
   const hero = document.getElementById('hero');
   let stars = [];
 
-  // ---- static star positions, regenerated on resize ----
+  // ---- star look: dense field of solid white dots in mixed sizes ----
+  const PX_PER_STAR = 1200;   // one star per this many px² — lower = denser
+  const MIN_R = 0.8;          // smallest dot radius (px)
+  const MAX_R = 4.2;          // largest dot radius (px)
+  const SIZE_SKEW = 3;        // higher = more tiny dots, fewer big ones
+  const TWINKLE = 0.25;       // 0 = perfectly solid, higher = more flicker
+  const PARALLAX = 0.6;       // star scroll speed vs the page: 1 = locked to the page,
+                              // lower = drifts slower (more depth), 0 = pinned to screen
+  const TILE_SCREENS = 1.75;  // star tile height in screen heights — taller = the
+                              // repeat is harder to notice
+
+  // ---- star tile: positions live in tile coordinates (0..tileH) and are
+  // wrapped into view each frame. Regenerated when the width changes, but
+  // NOT on height-only resizes (mobile URL bar showing/hiding) so the stars
+  // don't reshuffle mid-scroll ----
+  let tileH = 0;
   function resize() {
+    const widthChanged = canvas.width !== window.innerWidth;
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    const count = Math.floor((canvas.width * canvas.height) / 9000);
+    if (stars.length && !widthChanged && tileH >= canvas.height * 1.2) return;
+
+    tileH = Math.round(canvas.height * TILE_SCREENS);
+    const count = Math.floor((canvas.width * tileH) / PX_PER_STAR);
     stars = Array.from({ length: count }, () => ({
       x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      r: Math.random() * 1.3 + 0.2,
+      y: Math.random() * tileH,
+      r: MIN_R + (MAX_R - MIN_R) * Math.pow(Math.random(), SIZE_SKEW),
       tw: Math.random() * Math.PI * 2 // twinkle phase offset
     }));
   }
@@ -72,11 +96,20 @@ function initStarfield() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const t = Date.now() / 1000;
 
+    const offset = window.scrollY * PARALLAX;
     stars.forEach(s => {
-      const alpha = 0.4 + 0.6 * Math.abs(Math.sin(t * 0.5 + s.tw));
+      // wrap the star's tile position into the tile for this scroll offset,
+      // then shift it up one tile if it landed below the screen (so stars
+      // near the wrap seam still show at the top edge)
+      let y = ((s.y - offset) % tileH + tileH) % tileH;
+      if (y > canvas.height + s.r) {
+        y -= tileH;
+        if (y < -s.r) return; // off-screen either way
+      }
+      const alpha = 1 - TWINKLE * Math.abs(Math.sin(t * 0.5 + s.tw));
       ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(220,230,255,${alpha})`;
+      ctx.arc(s.x, y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,255,255,${alpha})`;
       ctx.fill();
     });
 

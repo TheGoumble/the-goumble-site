@@ -3,7 +3,7 @@ function initNav(navItems) {
   const toggle = document.getElementById('navToggle');
   container.innerHTML = '';
 
-  const positions = [31, 44, 56, 69];
+  const positions = [36, 50, 64, 78];
 
   navItems.forEach((item, i) => {
     const a = document.createElement('a');

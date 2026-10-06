@@ -1,0 +1,40 @@
+/* CONTACT — black hole */
+/* ---------- CONTACT / BLACK HOLE ---------- */
+#contact { text-align: center; }
+
+#blackhole {
+  position: relative;
+  width: 160px; height: 160px;
+  cursor: pointer;
+}
+
+#bhCore {
+  position: absolute;
+  inset: 30%;
+  background: #000;
+  border-radius: 50%;
+  box-shadow: 0 0 40px 10px rgba(var(--accent2-rgb), 0.6);
+}
+
+.ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--accent2-rgb), 0.4);
+  animation: spin linear infinite;
+}
+.r1 { animation-duration: 8s;  inset: 10%; }
+.r2 { animation-duration: 14s; inset: 0%;   border-color: rgba(var(--accent-rgb), 0.3); }
+.r3 { animation-duration: 20s; inset: -15%; border-color: rgba(var(--accent2-rgb), 0.2); }
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+#contactLabel {
+  margin-top: 24px;
+  color: var(--text-dim);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}

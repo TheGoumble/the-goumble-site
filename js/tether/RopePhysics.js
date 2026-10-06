@@ -12,7 +12,7 @@ function createRopePhysics(anchor, driftZone, charPos, velocity) {
   const RETARGET_CHANCE = 0.006;  // odds/frame of picking a new wander heading
   const EASE = 0.012;             // how gradually velocity bends toward the target
   const WALL_START = 0.85;        // soft wall begins at 85% of the zone's radius
-  const WALL_FORCE = 0.02;        // soft wall push strength
+  const WALL_FORCE = 0.05;        // soft wall push — gentle, never a snap      // soft wall push strength
   const WALL_DAMPING = 0.4;       // extra damping near the wall (prevents orbiting)
 
   const SEGMENT_COUNT = 16;
@@ -36,12 +36,12 @@ function createRopePhysics(anchor, driftZone, charPos, velocity) {
     velocity.x += (target.x - velocity.x) * EASE;
     velocity.y += (target.y - velocity.y) * EASE;
 
-    const { zone } = driftZone;
+    // soft wall: measure first, then push back gently
     const { normDist, dirX, dirY } = driftZone.distanceFraction(charPos);
     if (normDist > WALL_START) {
       const overshoot = normDist - WALL_START;
-      velocity.x -= dirX * overshoot * zone.radiusX * WALL_FORCE;
-      velocity.y -= dirY * overshoot * zone.radiusY * WALL_FORCE;
+      velocity.x -= dirX * overshoot * WALL_FORCE;
+      velocity.y -= dirY * overshoot * WALL_FORCE;
       const damp = 1 - Math.min(overshoot * WALL_DAMPING, 0.5);
       velocity.x *= damp;
       velocity.y *= damp;
