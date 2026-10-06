@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Goumble</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+
+<nav id="shipnav">
+  <svg id="shipSvg" viewBox="0 0 640 140" preserveAspectRatio="xMidYMid meet">
+    <path d="M40 70 L70 30 L110 30 L110 20 L150 20 L150 40 L 420 40 Q 470 40 500 55 L 560 70 L 500 85 Q 470 100 420 100 L150 100 L150 120 L110 120 L110 110 L70 110 Z"
+      fill="#11142b" stroke="#6ee7ff" stroke-width="1.5" />
+    <circle cx="95" cy="70" r="20" fill="#0a0e27" stroke="#6ee7ff" stroke-width="1.5" />
+    <text x="95" y="74" text-anchor="middle" font-size="9" fill="#6ee7ff" font-weight="600" id="navLogoText">logo</text>
+  </svg>
+  <div id="navLinks"></div>
+  <button id="navToggle" aria-label="Toggle menu">&#9776;</button>
+</nav>
+
+<section id="hero">
+  <div id="tetherLayer">
+    <svg id="tetherSvg"><path id="tetherPath" d="" /></svg>
+    <div id="character" title="Drag me">
+      <div class="astro-body"></div>
+    </div>
+  </div>
+  <div id="heroText">
+    <h1 id="heroName"></h1>
+    <p id="heroRole"></p>
+  </div>
+</section>
+
+<section id="about">
+  <div id="planet">
+    <div id="planetRing"></div>
+    <div id="planetContent">
+      <img id="headshot" alt="headshot" />
+      <img id="icon" alt="icon" />
+      <p id="bioText"></p>
+    </div>
+  </div>
+</section>
+
+<section id="field">
+  <button id="fieldViewToggle" class="view-toggle" aria-pressed="false"
+    aria-label="Switch between the drifting field and a plain list">
+    <span class="view-toggle-track"><span class="view-toggle-thumb"></span></span>
+    <span class="view-toggle-label">list view</span>
+  </button>
+  <h2 class="section-label">projects &amp; skills</h2>
+  <div id="asteroidField"></div>
+  <div id="fieldList" hidden></div>
+</section>
+
+<section id="contact">
+  <div id="blackhole">
+    <div class="ring r1"></div>
+    <div class="ring r2"></div>
+    <div class="ring r3"></div>
+    <div id="bhCore"></div>
+  </div>
+  <p id="contactLabel">click to send a transmission</p>
+</section>
+
+<!-- load order matters: main.js calls functions defined in the others,
+     so those four must load first. Order among them doesn't matter. -->
+<script src="js/data.js"></script>
+<script src="js/starfield.js"></script>
+<script src="js/tether/AnchorTracker.js"></script>
+<script src="js/tether/DriftZone.js"></script>
+<script src="js/tether/DragController.js"></script>
+<script src="js/tether/RopePhysics.js"></script>
+<script src="js/tether/tether.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/field.js"></script>
+<script src="js/contact.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

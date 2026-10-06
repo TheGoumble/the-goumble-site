@@ -1,0 +1,47 @@
+{
+  "site": {
+    "title": "The Goumble",
+    "tagline": "Drifting through code and builds."
+  },
+  "profile": {
+    "name": "Javier Andres Vargas",
+    "role": "Developer / Software Engineer",
+    "headshot": "assets/headshot.jpg",
+    "icon": "assets/icon.png",
+    "bio": "Write a few sentences about who you are, what you do, and what you're into. This pulls straight from data.json so you can update it anytime without touching the site code.",
+    "email": "you@thegoumble.com",
+    "socials": [
+      { "label": "GitHub", "url": "https://github.com/yourname" },
+      { "label": "LinkedIn", "url": "https://linkedin.com/in/yourname" },
+      { "label": "Twitter", "url": "https://twitter.com/yourname" }
+    ]
+  },
+  "nav": [
+    { "label": "home", "href": "#hero" },
+    { "label": "about", "href": "#about" },
+    { "label": "projects", "href": "#field" },
+    { "label": "contact", "href": "#contact" }
+  ],
+  "projects": [
+    {
+      "name": "Project One",
+      "description": "Short description of what this project is and what you used to build it.",
+      "link": "https://github.com/yourname/project-one",
+      "size": "large"
+    },
+    {
+      "name": "Project Two",
+      "description": "Short description of what this project is and what you used to build it.",
+      "link": "https://github.com/yourname/project-two",
+      "size": "large"
+    }
+  ],
+  "skills": [
+    { "name": "JavaScript", "size": "small" },
+    { "name": "Python", "size": "small" },
+    { "name": "React", "size": "small" },
+    { "name": "Node.js", "size": "small" },
+    { "name": "Docker", "size": "small" },
+    { "name": "SQL", "size": "small" }
+  ]
+}
