@@ -5,8 +5,8 @@
   top: 16px;
   left: 50%;
   transform: translateX(-50%);
-  --ship-w: min(640px, 92vw);
-  --ship-line: calc(var(--ship-w) * 0.0115);   /* thickness of the porthole rings */
+  --ship-w: min(760px, 92vw);
+  --ship-line: calc(var(--ship-w) * 0.0105);   /* same thickness as the ship outline */
   width: var(--ship-w);
   z-index: 50;            /* above #hero (z-index 1) so the rope runs behind the ship */
   pointer-events: none;   /* clicks fall through to the astronaut; links opt back in below */
@@ -33,7 +33,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: calc(var(--ship-w) * 0.115);
+  width: calc(var(--ship-w) * 0.105);
   aspect-ratio: 1;
   padding: 0;
   border: var(--ship-line) solid #000;
@@ -43,9 +43,7 @@
   font-size: calc(var(--ship-w) * 0.0165);
   font-weight: 800;
   white-space: nowrap;
-  color: #fff;
-  -webkit-text-stroke: 3px #000;
-  paint-order: stroke fill;
+  color: #000;
   cursor: pointer;
   transition: background 0.2s ease;
   pointer-events: auto;
@@ -93,6 +91,8 @@
     text-align: left;
     font-size: 13px;
     -webkit-text-stroke: 3px #000;
+    color: #fff;
+    paint-order: stroke fill;
   }
   .nav-link:hover, .nav-link.active {
     background: none;

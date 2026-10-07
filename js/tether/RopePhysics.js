@@ -6,7 +6,7 @@
      -> { stepCharacter, updateRope, ropeToPath }
    ============================================================ */
 
-function createRopePhysics(anchor, driftZone, charPos, velocity) {
+function createRopePhysics(anchor, driftZone, charPos, velocity, ropeEnd) {
   const ROPE_LENGTH = 500;        // hard leash — rope can't stretch past this
   const MAX_DRIFT_SPEED = 0.3;    // top wander speed (px/frame)
   const RETARGET_CHANCE = 0.006;  // odds/frame of picking a new wander heading
@@ -66,8 +66,8 @@ function createRopePhysics(anchor, driftZone, charPos, velocity) {
     ropePoints = [];
     for (let i = 0; i <= SEGMENT_COUNT; i++) {
       const t = i / SEGMENT_COUNT;
-      const x = anchor.x + (charPos.x - anchor.x) * t;
-      const y = anchor.y + (charPos.y - anchor.y) * t;
+      const x = anchor.x + (ropeEnd.x - anchor.x) * t;
+      const y = anchor.y + (ropeEnd.y - anchor.y) * t;
       ropePoints.push({ x, y, px: x, py: y });
     }
   }
@@ -75,7 +75,7 @@ function createRopePhysics(anchor, driftZone, charPos, velocity) {
   function pinEnds() {
     const last = ropePoints[ropePoints.length - 1];
     ropePoints[0].x = anchor.x; ropePoints[0].y = anchor.y;
-    last.x = charPos.x; last.y = charPos.y;
+    last.x = ropeEnd.x; last.y = ropeEnd.y;
   }
 
   function updateRope(time) {

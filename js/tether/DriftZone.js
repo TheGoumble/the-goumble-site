@@ -26,7 +26,7 @@
 
 function createDriftZone(hero, anchor) {
   const EDGE_MARGIN = 40;   // soft-wall inset from the page's top border
-  const CHAR_RADIUS = 23;   // half the character's 46px size
+  const CHAR_RADIUS = 65;   // half the character's 46px size
   const zone = { centerX: 0, centerY: 0, radiusX: 0, radiusY: 0, minY: 0 };
 
   function update() {
