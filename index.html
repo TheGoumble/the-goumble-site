@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Goumble</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Rubik:wght@800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -30,6 +31,8 @@
 </section>
 
 <section id="about">
+  <img class="bg-planet bg-planet-stars" src="assets/planet-stars.svg" alt="">
+  <img class="bg-planet bg-planet-maze" src="assets/planet-maze.svg" alt="">
   <div id="planet">
     <div id="planetRing"></div>
     <div id="planetContent">
@@ -41,15 +44,18 @@
 </section>
 
 <section id="field">
-  <button id="fieldViewToggle" class="view-toggle" aria-pressed="false"
-    aria-label="Switch between the drifting field and a plain list">
-    <span class="view-toggle-track"><span class="view-toggle-thumb"></span></span>
-    <span class="view-toggle-label">list view</span>
-  </button>
-  <h2 class="section-label">projects &amp; skills</h2>
+  <div class="field-header">
+    <h2 class="section-label">projects &amp; skills</h2>
+    <button id="fieldViewToggle" class="view-toggle" aria-pressed="false"
+      aria-label="Switch between the drifting field and a plain list">
+      <span class="view-toggle-track"><span class="view-toggle-thumb"></span></span>
+      <span class="view-toggle-label">list view</span>
+    </button>
+  </div>
   <div id="asteroidField"></div>
   <div id="fieldList" hidden></div>
 </section>
+  
 
 <section id="contact">
   <div id="blackhole">

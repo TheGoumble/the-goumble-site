@@ -52,16 +52,21 @@
 
 #heroName {
   font-size: clamp(32px, 6vw, 56px);
-  font-weight: 600;
+  font-weight: 800;
   margin: 0;
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  color: #fff;
+  -webkit-text-stroke: 10px #000;
+  paint-order: stroke fill;
+
 }
 
 #heroRole {
-  color: var(--text-dim);
-  font-size: clamp(14px, 2vw, 18px);
-  margin-top: 8px;
+  color: #fff;
+  font-weight: 500;
+  -webkit-text-stroke: 4px #000;
+  paint-order: stroke fill;
+  font-size: clamp(16px, 2.2vw, 22px);
 }

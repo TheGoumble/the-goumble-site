@@ -74,3 +74,41 @@
   color: var(--text-dim);
   line-height: 1.6;
 }
+
+/* ---------- BACKGROUND PLANETS ----------
+   two smaller decorative planets drifting behind the main one */
+#about { overflow: hidden; }
+
+.bg-planet {
+  position: absolute;
+  z-index: 0;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+  animation: planet-float 14s ease-in-out infinite;
+}
+
+.bg-planet-stars {
+  width: clamp(110px, 19vw, 280px);
+  left: 7%;
+  top: 9%;
+}
+
+.bg-planet-maze {
+  width: clamp(130px, 23vw, 340px);
+  right: 5%;
+  bottom: 7%;
+  animation-duration: 18s;
+  animation-delay: -6s;
+}
+
+#planet { z-index: 1; }
+
+@keyframes planet-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-14px) rotate(3deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-planet { animation: none; }
+}

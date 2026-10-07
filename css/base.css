@@ -2,12 +2,13 @@
 /* ---------- BASE ---------- */
 * { box-sizing: border-box; }
 
+  button, input, textarea { font-family: inherit; }
+  
 html, body {
   margin: 0;
   padding: 0;
   background: var(--space);
   color: var(--text);
-  font-family: 'Inter', system-ui, sans-serif;
   overflow-x: hidden;
   scroll-behavior: smooth;
 }
@@ -31,9 +32,12 @@ section {
 }
 
 .section-label {
-  font-size: 14px;
-  letter-spacing: 0.1em;
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-dim);
-  margin-bottom: 40px;
+  color: #fff;
+  -webkit-text-stroke: 6px #000;
+  paint-order: stroke fill;
 }

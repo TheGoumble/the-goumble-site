@@ -1,14 +1,18 @@
 /* VARIABLES — colors and the rgb triplets used in rgba(var(--x-rgb), a) */
 :root {
+  --font-display: 'Rubik', 'Fredoka', system-ui, sans-serif;
   --space: #252525;       /* solid space background (page + starfield), no gradient */
   --bg-deep: #05060f;
-  --accent: #6ee7ff;
-  --accent2: #a855f7;
+  --accent: #ff00af;      /* hot pink: nav glow/active, rope, toggle, character glow */
+  --accent2: #4abce6;     /* sky blue: title gradient end, secondary highlights */
+  --purple: #4e009a;      /* deep purple: nav buttons, asteroids, panels */
+  --red: #94000f;         /* dark red: black hole outer ring, warm accents */
   --text: #e2e8f0;
   --text-dim: #8b93b0;
 
   /* the same colors as r,g,b triplets, for rgba(var(--x-rgb), alpha) */
-  --accent-rgb: 110, 231, 255;
-  --accent2-rgb: 168, 85, 247;
-  --panel-rgb: 10, 14, 39;   /* navy behind nav buttons / mobile menu */
+  --accent-rgb: 255, 0, 175;
+  --accent2-rgb: 74, 188, 230;
+  --purple-rgb: 78, 0, 154;   /* also behind the nav buttons / mobile menu */
+  --red-rgb: 148, 0, 15;
 }

@@ -33,16 +33,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 10px;
-  color: var(--text-dim);
   cursor: pointer;
-  background: rgba(var(--panel-rgb), 0.4);
-  border: 1px solid rgba(var(--accent-rgb), 0.2);
   transition: all 0.25s ease;
   text-decoration: none;
   text-align: center;
   padding: 2px;
   pointer-events: auto;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #fff;
+  -webkit-text-stroke: 4px #000;
+  paint-order: stroke fill;
+  background: none;
+  border: none;
 }
 
 .nav-link:hover, .nav-link.active {
