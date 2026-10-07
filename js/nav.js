@@ -11,7 +11,6 @@ function initNav(navItems) {
     a.className = 'nav-link';
     a.textContent = item.label;
     a.style.left = positions[i % positions.length] + '%';
-    if (i === 0) a.classList.add('active');
 
     a.addEventListener('click', () => {
       document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
