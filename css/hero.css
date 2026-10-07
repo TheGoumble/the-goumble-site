@@ -3,6 +3,7 @@
 #hero {
   position: relative;
   text-align: center;
+  min-height: 85vh;   /* room for the astronaut to float */
 }
 
 #tetherLayer {

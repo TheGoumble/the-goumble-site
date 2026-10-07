@@ -8,40 +8,63 @@
     "role": "Developer / Software Engineer",
     "headshot": "assets/headshot.jpg",
     "icon": "assets/icon.png",
-    "bio": "Write a few sentences about who you are, what you do, and what you're into. This pulls straight from data.json so you can update it anytime without touching the site code.",
-    "email": "you@thegoumble.com",
+    "bio": "I'm a full-stack software engineer based in South Florida with a B.A. in Computer Science and a minor in Cybersecurity from Florida Atlantic University. I like building the parts people don't see: APIs, real-time networking, and secure systems, from a Spring Boot streaming backend with per-session AES-256 encryption to a multiplayer game that pairs a cloud-hosted Express API with peer-to-peer TCP sockets. I've shipped startup products, helped a 10-person team launch an emergency app in time for Hurricane Ian, and taught kids to code. Outside of work you'll find me at game jams and hackathons, tinkering with whatever I'm curious about next.",
+    "email": "3231javiervargas@gmail.com",
     "socials": [
-      { "label": "GitHub", "url": "https://github.com/yourname" },
-      { "label": "LinkedIn", "url": "https://linkedin.com/in/yourname" },
-      { "label": "Twitter", "url": "https://twitter.com/yourname" }
+      { "label": "GitHub", "url": "https://github.com/TheGoumble" },
+      { "label": "LinkedIn", "url": "https://www.linkedin.com/in/javier-andres-vargas-58136a213" },
+      { "label": "Instagram", "url": "https://www.instagram.com/thegoumble" }
     ]
   },
   "nav": [
-    { "label": "home", "href": "#hero" },
     { "label": "about", "href": "#about" },
     { "label": "projects", "href": "#field" },
     { "label": "contact", "href": "#contact" }
   ],
   "projects": [
     {
-      "name": "Project One",
-      "description": "Short description of what this project is and what you used to build it.",
-      "link": "https://github.com/yourname/project-one",
+      "name": "Secure Streaming Platform",
+      "description": "Educational live video streaming platform with real-time chat. Video frames are encrypted client-side with unique per-session AES-256 keys (Web Crypto API) and relayed through a Java Spring Boot backend over WebSockets. Built with React and Spring Boot.",
+      "link": "https://github.com/TheGoumble/secure-streaming",
       "size": "large"
     },
     {
-      "name": "Project Two",
-      "description": "Short description of what this project is and what you used to build it.",
-      "link": "https://github.com/yourname/project-two",
+      "name": "Multiplayer Blackjack",
+      "description": "JavaFX blackjack game with single-player vs. dealer AI and 1–4 player online multiplayer via game codes. Hybrid networking: an Express.js API on Google Cloud Run handles matchmaking and lobbies, while direct Java TCP peer-to-peer sockets handle live gameplay. Built with Java, JavaFX, Node.js, and Express.",
+      "link": "https://github.com/TheGoumble/COP4331-blackjack",
       "size": "large"
+    },
+    {
+      "name": "PeerSphere",
+      "description": "Desktop app that helps college students form study groups, share notes, build flashcards, and organize review sessions. Electron + JavaScript client backed by a Java service layer (models, DAOs, services) on MySQL 8.",
+      "link": "https://github.com/TheGoumble/peersphere-backend",
+      "size": "small"
+    },
+    {
+      "name": "Meta Beanie",
+      "description": "Community platform where gamers discuss strategies. React and Bootstrap front end deployed on Firebase, with an Express + Node.js API backed by MongoDB.",
+      "link": "https://github.com/TheGoumble",
+      "size": "small"
+    },
+    {
+      "name": "GMTK Game Jam 2023",
+      "description": "Game built under a tight deadline for the 2023 GMTK Game Jam.",
+      "link": "https://github.com/TheGoumble/GMTK-2023",
+      "size": "small"
     }
   ],
   "skills": [
     { "name": "JavaScript", "size": "small" },
+    { "name": "TypeScript", "size": "small" },
+    { "name": "Java", "size": "small" },
     { "name": "Python", "size": "small" },
     { "name": "React", "size": "small" },
     { "name": "Node.js", "size": "small" },
-    { "name": "Docker", "size": "small" },
-    { "name": "SQL", "size": "small" }
+    { "name": "Express", "size": "small" },
+    { "name": "Spring Boot", "size": "small" },
+    { "name": "MongoDB", "size": "small" },
+    { "name": "MySQL", "size": "small" },
+    { "name": "AWS", "size": "small" },
+    { "name": "Git", "size": "small" }
   ]
 }
