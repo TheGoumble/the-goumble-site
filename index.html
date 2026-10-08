@@ -51,13 +51,22 @@
   <div class="field-header">
     <h2 class="section-label">projects &amp; skills</h2>
     <button id="fieldViewToggle" class="view-toggle" aria-pressed="false"
-      aria-label="Switch between the drifting field and a plain list">
+      aria-label="Switch between the asteroid view and a formal list">
+      <span class="view-toggle-option view-toggle-option-left">asteroids</span>
       <span class="view-toggle-track"><span class="view-toggle-thumb"></span></span>
-      <span class="view-toggle-label">list view</span>
+      <span class="view-toggle-option view-toggle-option-right">formal</span>
     </button>
   </div>
-  <div id="asteroidField"></div>
-  <div id="fieldList" hidden></div>
+
+  <div id="spaceView">
+    <div id="spaceStage">
+      <div id="skillDrift" aria-hidden="true"></div>
+      <div id="rockCluster" role="list" aria-label="Projects"></div>
+    </div>
+    <article id="projectCard" class="proj-card" hidden aria-live="polite"></article>
+  </div>
+
+  <div id="formalView" hidden></div>
 </section>
 
 <section id="resume">

@@ -1,56 +1,7 @@
-/* FIELD — asteroids, view toggle, list view */
-/* ---------- PROJECTS & SKILLS ---------- */
+/* FIELD — projects as a still asteroid cluster, detail card, skill pills */
 #field {
   position: relative;
   overflow: hidden;
-}
-
-/* drifting asteroid view */
-#asteroidField {
-  position: relative;
-  width: 100%;
-  max-width: 1000px;
-  height: 420px;
-}
-
-.asteroid {
-  position: absolute;
-  border-radius: 46% 54% 60% 40% / 50% 45% 55% 50%;
-  background: linear-gradient(135deg, #3a3550, #1c1930);
-  border: 1px solid rgba(var(--accent-rgb), 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 4px;
-  color: var(--text-dim);
-  font-size: 10px;
-  cursor: pointer;
-  animation: drift linear infinite;
-  text-decoration: none;
-}
-
-.asteroid.project {
-  width: 130px; height: 130px;
-  font-size: 12px;
-  color: var(--text);
-  border-color: rgba(var(--accent2-rgb), 0.4);
-}
-
-.asteroid.skill { width: 60px; height: 60px; }
-
-.asteroid:hover {
-  box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.4);
-  border-color: var(--accent);
-}
-
-/* vw (viewport width), not %, on purpose: % would resolve against each
-   asteroid's own small width (60-130px) and barely travel. vw makes it
-   enter past the right edge and exit past the left regardless of its own
-   size; #field's overflow:hidden clips it at the section's edges. */
-@keyframes drift {
-  from { transform: translateX(110vw) rotate(0deg); }
-  to   { transform: translateX(-130vw) rotate(360deg); }
 }
 
 /* title row: the heading with the view switch beside it */
@@ -60,124 +11,271 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 16px 28px;
-  margin-bottom: 40px;
+  margin-bottom: 12px;
 }
-
 .field-header .section-label { margin-bottom: 0; }
 
-/* corner switch: swaps #asteroidField for #fieldList (see field.js) */
+/* switch: asteroid view <-> formal view (see field.js).
+   One white pill with two labels; a pink highlight slides under the active one. */
 .view-toggle {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 8px 14px;
-  background: rgba(var(--accent-rgb), 0.08);
-  border: 1px solid rgba(var(--accent-rgb), 0.45);
+  position: relative;
+  display: grid;
+  grid-template-columns: 128px 128px;
+  padding: 4px;
+  background: #fff;
+  border: 4px solid #000;
   border-radius: 999px;
   cursor: pointer;
-  color: var(--text);
-  font-size: 15px;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  z-index: 1;
-  transition: background 0.2s, box-shadow 0.2s;
-}
-
-.view-toggle:hover {
-  background: rgba(var(--accent-rgb), 0.16);
-  box-shadow: 0 0 16px rgba(var(--accent-rgb), 0.35);
-}
-
-.view-toggle-track {
-  position: relative;
-  width: 52px;
-  height: 28px;
-  border-radius: 999px;
-  border: 2px solid var(--accent);
-  background: rgba(var(--accent-rgb), 0.15);
-  transition: background 0.2s;
-}
-
-.view-toggle-thumb {
-  position: absolute;
-  top: 2px; left: 2px;
-  width: 20px; height: 20px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.7);
-  transition: transform 0.2s;
-}
-
-.view-toggle[aria-pressed="true"] .view-toggle-track { background: rgba(var(--accent-rgb), 0.4); }
-.view-toggle[aria-pressed="true"] .view-toggle-thumb { transform: translateX(24px); }
-
-/* two-label version: the active side is bright, the other dim */
-.view-toggle-option { transition: color 0.2s; }
-.view-toggle-option-left,
-.view-toggle[aria-pressed="true"] .view-toggle-option-right { color: var(--text); }
-.view-toggle-option-right,
-.view-toggle[aria-pressed="true"] .view-toggle-option-left { color: var(--text-dim); }
-/* plain list view */
-#fieldList {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 48px;
-  max-width: 1000px;
-  margin: 0 auto;
-  text-align: left;
-}
-
-/* needed: #fieldList's display:flex has the same weight as the browser's
-   built-in [hidden] rule and would otherwise keep the list visible */
-#fieldList[hidden] { display: none; }
-
-.field-list-group { flex: 1 1 280px; }
-
-.field-list-heading {
+  font-family: var(--font-display);
+  font-weight: 800;
   font-size: 13px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #000;
+  -webkit-text-stroke: 0;
+  z-index: 1;
+}
+.view-toggle:focus-visible { outline: 3px solid var(--accent2); outline-offset: 4px; }
+
+/* the sliding highlight */
+.view-toggle::before {
+  content: '';
+  position: absolute;
+  top: 4px; bottom: 4px; left: 4px;
+  width: 128px;
+  box-sizing: border-box;
+  background: var(--accent);
+  border: 3px solid #000;
+  border-radius: 999px;
+  transition: transform 0.2s ease;
+}
+.view-toggle[aria-pressed="true"]::before { transform: translateX(100%); }
+
+.view-toggle-track { display: none; }   /* old switch track, no longer used */
+
+.view-toggle-option {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  padding: 6px 0;
+  text-align: center;
+  color: #000;
+  transition: opacity 0.2s;
+}
+.view-toggle-option-left,
+.view-toggle[aria-pressed="true"] .view-toggle-option-right { opacity: 1; }
+.view-toggle-option-right,
+.view-toggle[aria-pressed="true"] .view-toggle-option-left { opacity: 0.55; }
+
+#spaceView[hidden], #formalView[hidden] { display: none; }
+
+/* ---------- stage: skills drift behind, project rocks sit on top ---------- */
+/* full width: #field centres its children, so without this the wrappers shrink to 0 */
+#spaceView { width: 100%; }
+#spaceStage { position: relative; width: 100%; }
+
+#skillDrift {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.drifter {
+  position: absolute;
+  left: 0;
+  width: 90px; height: 90px;
+  padding: 12px;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
+  isolation: isolate;
+  line-height: 1.1;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 12px;
+  color: #fff;
+  -webkit-text-stroke: 4px #000;
+  paint-order: stroke fill;
+  animation: drift linear infinite;
+}
+.drifter::before {
+  content: '';
+  position: absolute; inset: 0; z-index: -1;
+  background: var(--rock) center / contain no-repeat;
+  animation: tumble 9s linear infinite;
+}
+@keyframes drift {
+  from { transform: translateX(110vw); }
+  to   { transform: translateX(-130vw); }
+}
+@keyframes tumble { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { #skillDrift { display: none; } }
+
+/* ---------- the cluster ---------- */
+#rockCluster {
+  z-index: 1;
+  margin: 0 auto;
+  position: relative;
+  width: min(900px, 100%);
+  height: calc(var(--rows, 2) * var(--row-h, 250px));
+  margin-top: 28px;
+}
+
+.rock {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--s);
+  height: var(--s);
+  margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2);
+  padding: calc(var(--s) * 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  isolation: isolate;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  line-height: 1.1;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: calc(var(--s) * 0.1);
+  color: #fff;
+  -webkit-text-stroke: 5px #000;
+  paint-order: stroke fill;
+  animation: bob var(--bob, 7s) ease-in-out var(--delay, 0s) infinite;
+}
+/* the rock drawing sits behind the label so the text stays upright */
+.rock::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--rock) center / contain no-repeat;
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+.rock-1 { --rock: url("../assets/asteroid-1.svg"); }
+.rock-2 { --rock: url("../assets/asteroid-2.svg"); }
+.rock-3 { --rock: url("../assets/asteroid-3.svg"); }
+
+.rock:hover, .rock:focus-visible { animation-play-state: paused; }
+.rock:hover::before,
+.rock:focus-visible::before { transform: rotate(var(--tilt, 0deg)) scale(1.08); filter: brightness(1.12); }
+.rock:focus-visible { outline: 3px solid var(--accent2); outline-offset: 2px; border-radius: 30%; }
+.rock[aria-expanded="true"]::before { transform: rotate(var(--tilt, 0deg)) scale(1.1); filter: brightness(1.25); }
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-9px); }
+}
+@media (prefers-reduced-motion: reduce) { .rock { animation: none; } }
+
+/* ---------- project card (popup in asteroid view, grid item in formal view) ---------- */
+.proj-card {
+  position: relative;
+  padding: 22px 26px 24px;
+  background: #fff;
+  color: #000;
+  text-align: left;
+  border: 5px solid #000;
+  border-radius: 18px;
+  box-shadow: 5px 5px 0 #000;
+}
+.proj-card h3 {
+  margin: 0 36px 8px 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 22px;
+  line-height: 1.2;
+}
+.proj-card p { margin: 0 0 16px; font-weight: 500; font-size: 15px; line-height: 1.55; color: #222; }
+.proj-card .card-link { margin-top: 2px; }
+
+#projectCard {
+  z-index: 1;
+  width: min(560px, 100%);
+  margin: 6px auto 0;
+  animation: card-in 0.18s ease-out;
+}
+#projectCard[hidden] { display: none; }
+@keyframes card-in { from { opacity: 0; transform: translateY(8px); } }
+
+.card-close {
+  position: absolute;
+  top: 10px; right: 12px;
+  width: 32px; height: 32px;
+  background: #fff; color: #000;
+  border: 4px solid #000; border-radius: 50%;
+  font-family: var(--font-display); font-weight: 800; font-size: 16px; line-height: 1;
+  cursor: pointer;
+}
+.card-close:hover { background: var(--accent); }
+
+/* ---------- formal view ---------- */
+#formalView { width: min(960px, 100%); margin: 28px auto 0; text-align: left; }
+.formal-heading {
+  margin: 0 0 18px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 18px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-dim);
-  margin-bottom: 16px;
+  color: #fff;
+  -webkit-text-stroke: 5px #000;
+  paint-order: stroke fill;
 }
-
-.field-list-item {
-  padding: 14px 0;
-  border-bottom: 1px solid rgba(var(--accent-rgb), 0.12);
+.formal-heading:not(:first-child) { margin-top: 48px; }
+.formal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 22px;
 }
+.formal-grid .proj-card { display: flex; flex-direction: column; align-items: flex-start; }
+.formal-grid .proj-card h3 { margin-right: 0; }
+.formal-grid .proj-card p { flex: 1; }
 
-.field-list-item h3 {
-  font-size: 15px;
-  margin-bottom: 4px;
-}
-
-.field-list-item h3 a {
-  color: var(--text);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(var(--accent2-rgb), 0.4);
-}
-
-.field-list-item h3 a:hover {
-  color: var(--accent);
-  border-color: var(--accent);
-}
-
-.field-list-item p {
-  font-size: 13px;
-  color: var(--text-dim);
-  line-height: 1.5;
-}
-
-.field-list-skills {
+/* ---------- skill pills ---------- */
+.skill-pills {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-start;
   gap: 10px;
+  max-width: 860px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.skill-pills li {
+  padding: 4px 16px;
+  background: #fff;
+  color: #000;
+  border: 4px solid #000;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 14px;
 }
 
-.field-list-skill {
-  padding: 6px 12px;
-  font-size: 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(var(--accent2-rgb), 0.4);
-  color: var(--text-dim);
+/* ---------- phones: a tidy wrapped grid instead of a scatter ---------- */
+@media (max-width: 700px) {
+  #rockCluster {
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 4px;
+  }
+  .rock { position: relative; left: auto; top: auto; margin: 0; --s: 150px !important; font-size: 14px; }
+  .rock-3 { --s: 170px !important; }
+}
+
+/* the contact label shares the outlined-text look */
+#contactLabel {
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 800;
+  -webkit-text-stroke: 5px #000;
+  paint-order: stroke fill;
 }
