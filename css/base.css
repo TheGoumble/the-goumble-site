@@ -1,5 +1,4 @@
 /* BASE — reset, page background, section layout, shared label */
-/* ---------- BASE ---------- */
 * { box-sizing: border-box; }
 
   button, input, textarea { font-family: inherit; }
@@ -9,6 +8,7 @@ html, body {
   padding: 0;
   background: var(--space);
   color: var(--text);
+  font-family: var(--font-body);
   overflow-x: hidden;
   scroll-behavior: smooth;
 }

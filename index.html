@@ -14,6 +14,10 @@
 <nav id="shipnav">
   <img id="shipSvg" src="assets/ship.svg" alt="spaceship">
   <div id="navLinks"></div>
+  <a id="satellite" href="#resume" aria-label="Jump to my resume">
+    <img src="assets/satellite.svg" alt="" draggable="false">
+    <span class="sat-label">resume</span>
+  </a>
   <button id="navToggle" aria-label="Toggle menu">&#9776;</button>
 </nav>
 
@@ -21,7 +25,7 @@
   <div id="tetherLayer">
   <svg id="tetherSvg"><path id="tetherPath" d="" /></svg>
   <div id="character" title="Drag me">
-    <img class="astro-img" src="assets/astronaut.svg" alt="" draggable="false">
+    <img class="a   stro-img" src="assets/astronaut.svg" alt="" draggable="false">
   </div>
 </div>
   <div id="heroText">
@@ -55,7 +59,16 @@
   <div id="asteroidField"></div>
   <div id="fieldList" hidden></div>
 </section>
-  
+
+<section id="resume">
+  <h2 class="section-label">resume</h2>
+  <div class="resume-viewer">
+    <object data="assets/resume.pdf#view=FitH" type="application/pdf">
+      <p>Your browser can't show the PDF inline.</p>
+    </object>
+  </div>
+  <a class="resume-btn" href="assets/resume.pdf" download>Download PDF</a>
+</section>
 
 <section id="contact">
   <div id="blackhole">

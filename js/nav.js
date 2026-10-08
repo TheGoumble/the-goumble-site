@@ -33,8 +33,9 @@ function initNav(navItems) {
     }
     return HULL_H[HULL_H.length - 1][1];
   };
-  const FIRST = 0.42, LAST = 0.72;   // centres of the first / last ring (fraction of ship width)
-  const FIT = 0.92;                  // ring diameter as a share of the hull height
+  const FIRST = 0.40, LAST = 0.745;   // centres of the first / last ring (fraction of ship width)
+  const FIT = 0.92;  
+  const FIT_CROWDED = 0.85;                // ring diameter as a share of the hull height
 
   function placeLinks() {
     const links = [...container.querySelectorAll('.nav-link')];
@@ -46,7 +47,7 @@ function initNav(navItems) {
     const line = 0.0105;                       // ring thickness, fraction of W (matches CSS)
     links.forEach((l, i) => {
       const f = links.length > 1 ? FIRST + (LAST - FIRST) * i / (links.length - 1) : (FIRST + LAST) / 2;
-      const d = FIT * hullHeight(f);           // ring diameter, fraction of W
+      const d = (links.length > 3 ? FIT_CROWDED : FIT) * hullHeight(f);           // ring diameter, fraction of W
       const inner = (d - 2 * line) * W;        // room for the label, in px
       const fit = inner * 0.9 / (0.62 * l.textContent.length);
       l.style.left = (f * 100) + '%';

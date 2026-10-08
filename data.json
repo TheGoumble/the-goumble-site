@@ -16,6 +16,14 @@
       { "label": "Instagram", "url": "https://www.instagram.com/thegoumble" }
     ]
   },
+  "resume": {
+    "pdf": "assets/resume.pdf",
+    "entries": [
+      { "role": "B.A. Computer Science, minor in Cybersecurity", "org": "Florida Atlantic University", "dates": "20XX", "points": ["Honors, coursework or a capstone"] },
+      { "role": "Your job title", "org": "Company or team", "dates": "2024 — present", "points": ["What you built or owned", "A result you can point to"] },
+      { "role": "Another role or project", "org": "Company, startup or community", "dates": "2023 — 2024", "points": ["What you built or owned", "A result you can point to"] }
+    ]
+  },
   "nav": [
     { "label": "about", "href": "#about" },
     { "label": "projects", "href": "#field" },
@@ -67,4 +75,4 @@
     { "name": "AWS", "size": "small" },
     { "name": "Git", "size": "small" }
   ]
-}
+ }

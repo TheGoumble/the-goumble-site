@@ -1,6 +1,7 @@
 /* VARIABLES — colors and the rgb triplets used in rgba(var(--x-rgb), a) */
 :root {
   --font-display: 'Rubik', 'Fredoka', system-ui, sans-serif;
+  --font-body: 'Fredoka', system-ui, sans-serif;
   --space: #252525;       /* solid space background (page + starfield), no gradient */
   --bg-deep: #05060f;
   --accent: #ff00af;      /* hot pink: nav glow/active, rope, toggle, character glow */
