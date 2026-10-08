@@ -71,7 +71,6 @@
   #satellite { left: auto; right: 0; top: calc(100% + 36px); }
 }
 
-@media (max-width: 700px) {
-  #satellite { display: none; }          /* phones use the dropdown menu's resume link */
+@media (max-width: 700px) {        /* phones use the dropdown menu's resume link */
   .resume-viewer { height: 70vh; }
 }

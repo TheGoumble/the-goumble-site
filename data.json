@@ -1,6 +1,6 @@
 {
   "site": {
-    "title": "The Goumble",
+    "title": "The Goumble | Javier Andres Vargas, Software Engineer",
     "tagline": "Drifting through code and builds."
   },
   "profile": {
@@ -8,7 +8,11 @@
     "role": "Developer / Software Engineer",
     "headshot": "assets/headshot.jpg",
     "icon": "assets/icon.png",
-    "bio": "I'm a full-stack software engineer based in South Florida with a B.A. in Computer Science and a minor in Cybersecurity from Florida Atlantic University. I like building the parts people don't see: APIs, real-time networking, and secure systems, from a Spring Boot streaming backend with per-session AES-256 encryption to a multiplayer game that pairs a cloud-hosted Express API with peer-to-peer TCP sockets. I've shipped startup products, helped a 10-person team launch an emergency app in time for Hurricane Ian, and taught kids to code. Outside of work you'll find me at game jams and hackathons, tinkering with whatever I'm curious about next.",
+    "bio": [
+      "I'm a full-stack software engineer based in South Florida with a B.A. in Computer Science and a minor in Cybersecurity from Florida Atlantic University.",
+      "I like building the parts people don't see: APIs, real-time networking, and secure systems, from a Spring Boot streaming backend with per-session AES-256 encryption to a multiplayer game that pairs a cloud-hosted Express API with peer-to-peer TCP sockets.",
+      "Outside of work you'll find me at game jams and hackathons, tinkering with my own tech, growing an endless music library, and messing with art."
+    ],
     "email": "3231javiervargas@gmail.com",
     "socials": [
       { "label": "GitHub", "url": "https://github.com/TheGoumble" },
@@ -17,12 +21,7 @@
     ]
   },
   "resume": {
-    "pdf": "assets/resume.pdf",
-    "entries": [
-      { "role": "B.A. Computer Science, minor in Cybersecurity", "org": "Florida Atlantic University", "dates": "20XX", "points": ["Honors, coursework or a capstone"] },
-      { "role": "Your job title", "org": "Company or team", "dates": "2024 — present", "points": ["What you built or owned", "A result you can point to"] },
-      { "role": "Another role or project", "org": "Company, startup or community", "dates": "2023 — 2024", "points": ["What you built or owned", "A result you can point to"] }
-    ]
+    "pdf": "assets/resume.pdf"
   },
   "nav": [
     { "label": "about", "href": "#about" },
@@ -51,7 +50,7 @@
     {
       "name": "Meta Beanie",
       "description": "Community platform where gamers discuss strategies. React and Bootstrap front end deployed on Firebase, with an Express + Node.js API backed by MongoDB.",
-      "link": "https://github.com/TheGoumble",
+      "link": "https://github.com/TheGoumble/final-project-react",
       "size": "small"
     },
     {

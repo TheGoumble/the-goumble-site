@@ -74,6 +74,8 @@
   color: var(--text-dim);
   line-height: 1.6;
 }
+#bioText p { margin: 0 0 0.8em; }
+#bioText p:last-child { margin-bottom: 0; }
 
 /* ---------- BACKGROUND PLANETS ----------
    two smaller decorative planets drifting behind the main one */

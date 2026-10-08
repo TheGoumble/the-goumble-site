@@ -5,11 +5,23 @@ function loadData(onReady) {
       document.title = data.site.title;
       document.getElementById('heroName').textContent = data.profile.name;
       document.getElementById('heroRole').textContent = data.profile.role;
-      document.getElementById('bioText').textContent = data.profile.bio;
+
+      // bio can be a single string or a list of paragraphs
+      const bio = Array.isArray(data.profile.bio) ? data.profile.bio : [data.profile.bio];
+      const bioBox = document.getElementById('bioText');
+      bioBox.textContent = '';
+      bio.forEach(text => {
+        const p = document.createElement('p');
+        p.textContent = text;
+        bioBox.appendChild(p);
+      });
+
       const headshotEl = document.getElementById('headshot');
       const iconEl = document.getElementById('icon');
       headshotEl.onerror = () => { headshotEl.style.display = 'none'; };
       iconEl.onerror = () => { iconEl.style.display = 'none'; };
+      headshotEl.alt = 'Photo of ' + data.profile.name;
+      iconEl.alt = '';                      // decorative
       headshotEl.src = data.profile.headshot;
       iconEl.src = data.profile.icon;
 
