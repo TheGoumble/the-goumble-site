@@ -1,3 +1,19 @@
+/* ============================================================
+   NAV
+   ------------------------------------------------------------
+   Owns: the nav links positioned as "windows" along the ship
+   hull (#navLinks), the phone placement of the satellite, and the
+   (unused now) hamburger toggle (#navToggle).
+
+   Moves on its own: nothing animated here — links are static
+   once placed. Only changes on click (active state).
+
+   Depends on: data.nav (array of {label, href}) from data.json.
+   Must be called AFTER data.json has loaded.
+
+   Call: initNav(navItems)
+   ============================================================ */
+
 function initNav(navItems) {
   const container = document.getElementById('navLinks');
   const toggle = document.getElementById('navToggle');
@@ -13,7 +29,6 @@ function initNav(navItems) {
     a.addEventListener('click', () => {
       document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
       a.classList.add('active');
-      container.classList.add('closed'); // auto-close mobile menu after a click
     });
 
     container.appendChild(a);
@@ -33,37 +48,58 @@ function initNav(navItems) {
     }
     return HULL_H[HULL_H.length - 1][1];
   };
-  const FIRST = 0.40, LAST = 0.745;   // centres of the first / last ring (fraction of ship width)
-  const FIT = 0.92;  
-  const FIT_CROWDED = 0.85;                // ring diameter as a share of the hull height
+  const FIRST = 0.40, LAST = 0.745;  // centres of the first / last ring (fraction of ship width)
+  const FIT = 0.92;                  // ring diameter as a share of the hull height (3 links)
+  const FIT_CROWDED = 0.85;          // smaller rings when there are 4+ links, so they don't touch
 
   function placeLinks() {
     const links = [...container.querySelectorAll('.nav-link')];
-    if (window.innerWidth <= 700) {            // mobile dropdown: CSS lays them out
-      links.forEach(l => { l.style.left = l.style.top = l.style.width = l.style.fontSize = ''; });
-      return;
-    }
+    const phone = window.innerWidth <= 700;     // phones: the ship is cropped, so the portholes bunch in the wide middle of the hull
+    const first = phone ? 0.45 : FIRST, last = phone ? 0.69 : LAST;
     const W = container.clientWidth;
     const line = 0.0105;                       // ring thickness, fraction of W (matches CSS)
     links.forEach((l, i) => {
-      const f = links.length > 1 ? FIRST + (LAST - FIRST) * i / (links.length - 1) : (FIRST + LAST) / 2;
+      const f = links.length > 1 ? first + (last - first) * i / (links.length - 1) : (first + last) / 2;
       const d = (links.length > 3 ? FIT_CROWDED : FIT) * hullHeight(f);           // ring diameter, fraction of W
       const inner = (d - 2 * line) * W;        // room for the label, in px
       const fit = inner * 0.9 / (0.62 * l.textContent.length);
       l.style.left = (f * 100) + '%';
       l.style.top = (49 - 5 * (f - 0.4)) + '%';
       l.style.width = (d * 100) + '%';
-      l.style.fontSize = Math.min(0.02 * W, fit) + 'px';
+      l.style.fontSize = Math.max(phone ? 10 : 0, Math.min(0.02 * W, fit)) + 'px';
     });
   }
   placeLinks();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeLinks);
   window.addEventListener('resize', placeLinks);
 
-  toggle.addEventListener('click', () => {
-    container.classList.toggle('closed');
-  });
+  // phones: the satellite floats lower down, left of centre under your name (not beside the ship).
+  // Measured from the bottom of the name/role block so it keeps its place on any screen height.
+  const sat = document.getElementById('satellite');
+  function placeSatellite() {
+    if (!sat) return;
+    const nav = document.getElementById('shipnav');
+    const text = document.getElementById('heroText');
+    if (window.innerWidth > 700 || !nav || !text || !text.offsetHeight) {
+      sat.style.left = sat.style.top = sat.style.right = '';      // desktop / tablet: CSS decides
+      return;
+    }
+    const n = nav.getBoundingClientRect(), t = text.getBoundingClientRect();
+    const cx = window.innerWidth * 0.266, cy = t.bottom + 105;       // centre of the spot
+    sat.style.right = 'auto';
+    sat.style.left = (cx - sat.offsetWidth / 2 - n.left) + 'px';
+    sat.style.top = (cy - sat.offsetHeight / 2 - 10 - n.top) + 'px'; // -10: leaves room for the label below
+  }
+  placeSatellite();
+  window.addEventListener('resize', placeSatellite);
+  window.addEventListener('load', placeSatellite);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeSatellite);
+  const heroTextEl = document.getElementById('heroText');
+  if (heroTextEl) {
+    if (window.ResizeObserver) new ResizeObserver(placeSatellite).observe(heroTextEl);
+    if (window.MutationObserver) new MutationObserver(placeSatellite).observe(heroTextEl, { childList: true, characterData: true, subtree: true });
+  }
 
-  // start collapsed on mobile widths
-  if (window.innerWidth <= 700) container.classList.add('closed');
+  // the hamburger is no longer used (the ship is the menu on phones too), but keep it harmless if it exists
+  if (toggle) toggle.addEventListener('click', () => container.classList.toggle('closed'));
 }

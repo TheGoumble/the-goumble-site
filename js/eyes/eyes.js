@@ -58,6 +58,16 @@ function initEyes() {
     console.warn('[eyes] js/eyes-data.js is the OLD version (no eye-opening outline), so pupils will not slide under the lids. Replace it with the new eyes-data.js and hard refresh.');
   }
 
+  // Phones (hero 700px wide or less): positions are measured from your name and role text, so they
+  // hold their place on any screen height, and when the name wraps onto two lines.
+  // nameDy = pixels from the TOP of the name (from: 'top') or the BOTTOM of the role line (from: 'bottom');
+  // negative = above, positive = below.
+  const PHONE_SLOTS = [
+    { name: true, from: 'top',    fx: 0.214, nameDy: -180, kind: 'pair',   tilt: 0, rot: -54, scale: 1.0 },
+    { name: true, from: 'top',    fx: 0.875, nameDy:  -51, kind: 'single', which: 1, tilt: 0, rot: -32, scale: 1.06 },
+    { name: true, from: 'bottom', fx: 0.84,  nameDy:  110, kind: 'pair',   tilt: -5, rot: 0, scale: 1.0 },
+  ];
+
   const byName = {};
   const PAIR = () => byName.stars || EYE_PAIRS[0];
   EYE_PAIRS.forEach(p => {
@@ -93,6 +103,13 @@ function initEyes() {
     range.selectNodeContents(el);
     return rel(range.getBoundingClientRect(), hr);
   }
+  // one box per line of text, so a name that wraps to two lines doesn't block the empty corner beside the short line
+  function textLines(el, hr) {
+    if (!el) return [];
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    return [...range.getClientRects()].filter(r => r.width > 1 && r.height > 1).map(r => rel(r, hr));
+  }
 
   function layout() {
     const hr = hero.getBoundingClientRect();
@@ -113,9 +130,13 @@ function initEyes() {
       const el = document.getElementById(id);
       if (el) { const r = rel(el.getBoundingClientRect(), hr); blockers.push(r); if (id === 'shipnav') ship = r; }
     });
+    let nameR = null, textBottom = null;
     ['heroName', 'heroRole'].forEach(id => {
-      const r = textRect(document.getElementById(id), hr);
-      if (r) blockers.push(r);
+      const el = document.getElementById(id);
+      const r = textRect(el, hr);
+      if (r && id === 'heroName') nameR = r;
+      if (r) textBottom = Math.max(textBottom === null ? -1e9 : textBottom, r.b);
+      textLines(el, hr).forEach(l => blockers.push(l));
     });
 
     // only place eyes on the first screen: from the top of the page down to the bottom of the window
@@ -123,9 +144,11 @@ function initEyes() {
     const visH = Math.max(320, Math.min(H, window.innerHeight - Math.max(0, heroTop)));
     const basePx = Math.max(130, Math.min(250, W * 0.17));
     placed = [];
-    const maxEyes = W < 600 ? 3 : MAX_EYES;   // keep phones calm
+    const phone = W <= 700;
+    const maxEyes = phone ? 3 : MAX_EYES;      // keep phones calm
+    const slots = phone ? PHONE_SLOTS : SLOTS;
     const pair = PAIR();
-    SLOTS.forEach(slot => {
+    slots.forEach(slot => {
       if (placed.length >= maxEyes) return;
       const px = basePx * slot.scale / 100;
       const single = slot.kind === 'single';
@@ -142,13 +165,19 @@ function initEyes() {
       if (slot.ship) {
         if (!ship) return;
         cy = (ship.t + ship.b) / 2 + slot.dy * ((ship.r - ship.l) / 760);
+      } else if (slot.name) {
+        if (!nameR) return;
+        cy = (slot.from === 'bottom' ? textBottom : nameR.t) + slot.nameDy;
       }
       const bw = (uw * cs + uh * sn) * sz, bh = (uw * sn + uh * cs) * sz;
       cx = Math.max(bw / 2 + 12, Math.min(W - bw / 2 - 12, cx));   // keep inside the hero
       const box = { l: cx - bw / 2, r: cx + bw / 2, t: cy - bh / 2, b: cy + bh / 2 };
-      if (slot.ship) { if (box.t < -extra + 8) return; }
+      if (slot.ship || slot.name) { if (box.t < -extra + 8) return; }
       else if (box.t < 8 || box.b > visH - 8) return;
-      if (blockers.some(b => hit(box, b, 18))) return;
+      // spots you placed by hand relative to the name only need to stay clear of the text itself
+      const pad = slot.name ? 4 : 18;
+      const bi = blockers.findIndex((b, k) => !(slot.name && k === 0) && hit(box, b, pad));
+      if (bi >= 0) { if (window.__eyesDebug) console.log('[eyes] skipped a spot: blocked by', ['ship', 'satellite'][bi] || 'text', box, blockers[bi]); return; }
       if (placed.some(p => hit(box, p.box, 14))) return;
       const list = single ? [e0] : pair.eyes;
       placed.push({
@@ -251,7 +280,8 @@ function initEyes() {
   function stop() { running = false; }
 
   layout();
-  if (!placed.length) console.warn('[eyes] no empty space found for any eye (hero ' + Math.round(W) + 'x' + Math.round(H) + ')');
+  // (the name arrives a moment after load, so check again a bit later before complaining)
+  setTimeout(() => { if (!placed.length) console.warn('[eyes] no empty space found for any eye (hero ' + Math.round(W) + 'x' + Math.round(H) + ')'); }, 3000);
   window.addEventListener('resize', layout);
   if (window.ResizeObserver) new ResizeObserver(layout).observe(hero);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);

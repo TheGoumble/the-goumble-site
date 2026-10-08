@@ -1,0 +1,116 @@
+/* ============================================================
+   MOBILE FIXES — phones and small tablets only
+   ------------------------------------------------------------
+   Loaded last (see style.css), so these only change things at
+   narrow widths and never touch the desktop layout.
+   ============================================================ */
+
+/* ---------- resume: phones can't show a PDF inline ---------- */
+/* mobile.js draws the pages onto the page (.pdf-pages) and adds an "Open in new tab" button;
+   if that fails it shows a short note instead (.no-inline-pdf). */
+.resume-viewer.pdf-pages {
+  width: min(900px, 100%);
+  height: auto;              /* the page scrolls, not a box inside the page */
+  overflow: hidden;
+}
+.resume-viewer .pdf-canvases canvas { display: block; width: 100%; max-width: 100%; height: auto; }
+.resume-viewer .pdf-canvases canvas + canvas { border-top: 3px solid #000; }
+.resume-viewer .pdf-status {
+  margin: 0;
+  padding: 28px 20px;
+  text-align: center;
+  color: #000;
+  font-family: var(--font-body);
+  font-size: 15px;
+}
+.resume-open { margin: 10px 0 12px; }
+.pdf-hint {
+  margin: 12px 0 0;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 14px;
+  opacity: 0.8;
+}
+.resume-viewer.pdf-pages { cursor: zoom-in; }
+
+/* the full-screen zoomed view */
+.pdf-zoom {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.97);
+}
+.pdf-zoom-bar { display: flex; justify-content: flex-end; padding: 10px 12px; }
+.pdf-zoom-close { cursor: pointer; font-size: 14px; padding: 6px 18px; }
+.pdf-zoom-body {
+  flex: 1;
+  overflow: auto;                       /* scroll both ways; pinch zoom works too */
+  -webkit-overflow-scrolling: touch;
+  padding: 0 12px 24px;
+}
+.pdf-zoom-pages { width: max-content; background: #fff; }
+.pdf-zoom-pages canvas { display: block; max-width: none; }
+.pdf-zoom-pages canvas + canvas { border-top: 3px solid #000; }
+.pdf-zoom-pages:empty { width: auto; background: none; }
+.resume-viewer.no-inline-pdf {
+  height: auto;
+  padding: 28px 20px;
+  text-align: center;
+}
+.resume-viewer.no-inline-pdf p {
+  margin: 0;
+  color: #000;
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+@media (max-width: 700px) {
+
+  /* ---------- nav: the same ship, drawn wider than the screen ----------
+     The tail runs off the left edge and the nose stays in view, so the three
+     portholes are big enough to tap. The satellite floats by the nose, as on desktop. */
+  #shipnav {
+    --ship-w: 158vw;
+    width: var(--ship-w);
+    left: calc(100% - var(--ship-w) + 8px);   /* nose ends just inside the right edge */
+    transform: none;
+    margin-top: -46px;                        /* the hull sits low in the drawing; pull it up under the top edge */
+    background: none;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    backdrop-filter: none;
+  }
+  #navToggle { display: none; }
+  .nav-link { -webkit-tap-highlight-color: transparent; }
+  #satellite {
+    display: block;                   /* resume.css hides it on phones; here it comes back */
+    --sat-w: 96px;
+    left: auto;               /* nav.js moves it under the name; this is the fallback */
+    right: 22px;
+    top: 66%;
+  }
+  .sat-label { font-size: 13px; -webkit-text-stroke: 4px #000; }
+
+  /* ---------- hero: slightly smaller astronaut so he fits the screen ---------- */
+  #character { width: 92px; }
+
+  /* ---------- about: the bio is longer than a circle holds, so the "planet"
+     becomes a rounded card that grows with the text, and the two small
+     planets sit in the space above and below it instead of on the words ---------- */
+  #about { padding: 150px 16px; }
+  #planet {
+    width: min(100%, 420px);
+    aspect-ratio: auto;
+    border-radius: 36px;
+    padding: 52px 22px 28px;
+  }
+  #planetContent { width: 100%; }
+  #planetRing { display: none; }
+  #bioText { font-size: 15px; color: var(--text); }
+  .bg-planet-stars { width: 104px; top: 22px; left: 8%; }
+  .bg-planet-maze  { width: 118px; bottom: 22px; right: 8%; }
+}
