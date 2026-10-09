@@ -4,6 +4,8 @@
 
 #blackhole { position: relative; width: 180px; height: 180px; cursor: pointer; }
 
+#blackhole:focus-visible { outline: 3px solid var(--accent2); outline-offset: 24px; border-radius: 50%; }
+
 #bhCore {
   position: absolute; inset: 30%;
   background: #000; border: 6px solid #fff; border-radius: 50%;
@@ -44,3 +46,5 @@
   list-style: none;
 }
 #socials .resume-btn { font-size: 13px; padding: 6px 16px; }
+
+@media (prefers-reduced-motion: reduce) { .ring { animation: none; } }

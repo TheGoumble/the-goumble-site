@@ -52,3 +52,5 @@
 .nav-link:hover, .nav-link.active {
   background: var(--accent);
 }
+
+.nav-link:focus-visible { outline: 3px solid var(--accent2); outline-offset: 4px; }

@@ -62,7 +62,6 @@ function renderRocks(projects) {
     const el = document.createElement('button');
     el.type = 'button';
     el.className = 'rock rock-' + rock;
-    el.setAttribute('role', 'listitem');
     el.setAttribute('aria-expanded', 'false');
     el.textContent = p.name;
     el.style.setProperty('--s', ROCK_SIZE[rock] + 'px');

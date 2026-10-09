@@ -23,6 +23,7 @@ function initStarfield() {
   const ctx = canvas.getContext('2d');
   const hero = document.getElementById('hero');
   let stars = [];
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;  // no twinkle, shooting stars or scroll drift
 
   // ---- star look: dense field of solid white dots in mixed sizes ----
   const PX_PER_STAR = 1200;   // one star per this many px² — lower = denser
@@ -55,7 +56,7 @@ function initStarfield() {
       tw: Math.random() * Math.PI * 2 // twinkle phase offset
     }));
   }
-  window.addEventListener('resize', resize);
+  window.addEventListener('resize', () => { resize(); if (still) draw(); });
   resize();
 
   // ---- shooting stars: short-lived streaks spawned at random, but only
@@ -96,7 +97,7 @@ function initStarfield() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const t = Date.now() / 1000;
 
-    const offset = window.scrollY * PARALLAX;
+    const offset = still ? 0 : window.scrollY * PARALLAX;
     stars.forEach(s => {
       // wrap the star's tile position into the tile for this scroll offset,
       // then shift it up one tile if it landed below the screen (so stars
@@ -106,12 +107,14 @@ function initStarfield() {
         y -= tileH;
         if (y < -s.r) return; // off-screen either way
       }
-      const alpha = 1 - TWINKLE * Math.abs(Math.sin(t * 0.5 + s.tw));
+      const alpha = still ? 1 : 1 - TWINKLE * Math.abs(Math.sin(t * 0.5 + s.tw));
       ctx.beginPath();
       ctx.arc(s.x, y, s.r, 0, Math.PI * 2);
       ctx.fillStyle = `rgba(255,255,255,${alpha})`;
       ctx.fill();
     });
+
+    if (still) return;
 
     maybeSpawnShootingStar();
     shooting.forEach(s => {

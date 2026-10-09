@@ -38,6 +38,7 @@
 </head>
 <body>
 
+<a class="skip-link" href="#main">Skip to content</a>
 <canvas id="starfield" aria-hidden="true"></canvas>
 
 <nav id="shipnav">
@@ -49,7 +50,7 @@
   </a>
 </nav>
 
-<main>
+<main id="main">
 <section id="hero">
   <div id="tetherLayer">
   <svg id="tetherSvg"><path id="tetherPath" d="" /></svg>
@@ -64,6 +65,7 @@
 </section>
 
 <section id="about">
+  <h2 class="sr-only">About</h2>
   <img class="bg-planet bg-planet-stars" loading="lazy" src="assets/about/planet-stars.svg" alt="">
   <img class="bg-planet bg-planet-maze" loading="lazy" src="assets/about/planet-maze.svg" alt="">
   <div id="planet">
@@ -79,7 +81,7 @@
   <div class="field-header">
     <h2 class="section-label">projects &amp; skills</h2>
     <button id="fieldViewToggle" class="view-toggle" aria-pressed="false"
-      aria-label="Switch between the asteroid view and a formal list">
+      title="Switch between the asteroid view and a formal list">
       <span class="view-toggle-option view-toggle-option-left">asteroids</span>
       <span class="view-toggle-option view-toggle-option-right">formal</span>
     </button>
@@ -88,7 +90,7 @@
   <div id="spaceView">
     <div id="spaceStage">
       <div id="skillDrift" aria-hidden="true"></div>
-      <div id="rockCluster" role="list" aria-label="Projects"></div>
+      <div id="rockCluster" role="group" aria-label="Projects"></div>
     </div>
     <article id="projectCard" class="proj-card" hidden aria-live="polite"></article>
   </div>
