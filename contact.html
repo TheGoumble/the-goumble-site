@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Send a transmission | The Goumble</title>
+<meta name="description" content="Send Javier Andres Vargas a message. Fill in the form and your letter is delivered through the sky window.">
+<meta name="theme-color" content="#000000">
+<link rel="canonical" href="https://thegoumble.com/contact.html">
+
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="48x48" href="assets/icons/favicon-48.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Rubik:wght@800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/contactpage.css">
+</head>
+<body>
+
+<a id="backLink" href="index.html#contact">&larr; back to the ship</a>
+
+<main id="scene">
+
+  <!-- the sky window (your drawing) -->
+  <div id="skyWrap">
+    <img id="sky" src="assets/contact/sky-window.png" alt="" draggable="false">
+  </div>
+
+  <!-- the arm reaches out of the window like a portal: behind the envelope. The thumb piece goes in front of it.
+       (the wrapper holds the "portal cut" so only the part that has come out of the window shows) -->
+  <div class="portal" id="armClip"><img id="arm" src="assets/contact/arm.png" alt="" draggable="false" hidden></div>
+
+  <!-- the letter: the form, the folding paper, the envelope and the "delivered" note all live here -->
+  <div id="stage">
+    <form id="mail" class="paper" novalidate
+          data-access-key="YOUR_ACCESS_KEY_HERE">
+      <h1>Send a transmission</h1>
+
+      <div class="field">
+        <label for="fName">Your name</label>
+        <input id="fName" name="name" type="text" autocomplete="name" maxlength="80" required>
+      </div>
+      <div class="field">
+        <label for="fEmail">Your email</label>
+        <input id="fEmail" name="email" type="email" autocomplete="email" maxlength="120" required>
+      </div>
+      <div class="field">
+        <label for="fMessage">Message</label>
+        <textarea id="fMessage" name="message" rows="5" maxlength="3000" required></textarea>
+      </div>
+
+      <!-- spam traps: people never see these -->
+      <div class="trap" aria-hidden="true">
+        <label>Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off">
+      </div>
+
+      <p id="formMsg" role="alert"></p>
+      <button id="sendBtn" class="send" type="submit">Send transmission</button>
+    </form>
+
+    <div id="folder" aria-hidden="true" hidden></div>
+
+    <svg id="envelope" viewBox="0 0 160 100" aria-hidden="true" hidden>
+      <rect x="3" y="3" width="154" height="94" rx="9" fill="#fff" stroke="#000" stroke-width="6"/>
+      <path d="M8 94 L62 48 M152 94 L98 48" fill="none" stroke="#000" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M8 9 L80 62 L152 9" fill="#fff" stroke="#000" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="80" cy="62" r="13" fill="#ff00af" stroke="#000" stroke-width="5"/>
+      <path d="M80 55 l2.2 4.8 5.2.6 -3.9 3.5 1.1 5.1 -4.6 -2.6 -4.6 2.6 1.1 -5.1 -3.9 -3.5 5.2 -.6z" fill="#fff"/>
+    </svg>
+
+    <div id="done" hidden>
+      <h2>Transmission delivered</h2>
+      <p>Thanks for reaching out. I'll get back to you soon.</p>
+      <div class="done-actions">
+        <a class="pill" href="index.html#contact">Back to the ship</a>
+        <button class="pill ghost" id="againBtn" type="button">Send another</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="portal" id="thumbClip"><img id="thumb" src="assets/contact/thumb.png" alt="" draggable="false" hidden></div>
+
+  <p id="fallback">Prefer plain email? <a id="fallbackMail" href="#">Write to me directly</a></p>
+</main>
+
+<noscript>
+  <p style="position:relative;z-index:5;text-align:center;color:#fff;font:16px sans-serif;padding:24px">
+    This form needs JavaScript. You can email me directly instead.
+  </p>
+</noscript>
+
+<script src="js/contactpage.js"></script>
+</body>
+</html>

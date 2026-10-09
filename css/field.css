@@ -156,9 +156,9 @@
   transform: rotate(var(--tilt, 0deg));
   transition: transform 0.2s ease, filter 0.2s ease;
 }
-.rock-1 { --rock: url("../assets/asteroid-1.svg"); }
-.rock-2 { --rock: url("../assets/asteroid-2.svg"); }
-.rock-3 { --rock: url("../assets/asteroid-3.svg"); }
+.rock-1 { --rock: url("../assets/field/asteroid-1.svg"); }
+.rock-2 { --rock: url("../assets/field/asteroid-2.svg"); }
+.rock-3 { --rock: url("../assets/field/asteroid-3.svg"); }
 
 .rock:hover, .rock:focus-visible { animation-play-state: paused; }
 .rock:hover::before,

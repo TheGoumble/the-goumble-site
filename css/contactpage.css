@@ -1,0 +1,192 @@
+/* ============================================================
+   CONTACT PAGE — the void, the sky window, the form and the delivery.
+   Only used by contact.html. The animations themselves are driven by
+   js/contactpage.js; this file is just how everything looks.
+   ============================================================ */
+
+html, body { margin: 0; min-height: 100%; background: #000; }
+body {
+  color: #fff;
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#backLink {
+  position: absolute; z-index: 10; top: 18px; left: 18px;
+  color: #fff; opacity: 0.8; text-decoration: none;
+  font-family: var(--font-body); font-weight: 500; font-size: 15px;
+}
+#backLink:hover { opacity: 1; text-decoration: underline; }
+#backLink:focus-visible, .pill:focus-visible, .send:focus-visible, #fallbackMail:focus-visible {
+  outline: 3px solid var(--accent2); outline-offset: 4px;
+}
+
+/* everything sits in one centred column; sizes are tied to --arm-w so the
+   arm, the palm and the envelope always stay in proportion */
+#scene {
+  --arm-w: clamp(150px, 62vw, 300px);
+  --env-w: calc(var(--arm-w) * 0.74);
+  position: relative; z-index: 1;
+  width: min(100%, 620px);
+  margin: 0 auto;
+  padding: 68px 16px 60px;
+  box-sizing: border-box;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 30px;
+  animation: void-in 0.9s ease-out both;
+}
+@keyframes void-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---------- sky window ---------- */
+#skyWrap {
+  position: relative; z-index: 1;
+  width: min(100%, 540px);
+  animation: sky-open 1.1s cubic-bezier(.2,.9,.25,1) both, sky-bob 9s ease-in-out 1.2s infinite;
+}
+#sky { display: block; width: 100%; height: auto; user-select: none; }
+@keyframes sky-open {
+  from { transform: scale(0.15, 0.02); opacity: 0; }
+  60%  { opacity: 1; }
+  to   { transform: scale(1); opacity: 1; }
+}
+@keyframes sky-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-7px); }
+}
+#scene.busy #skyWrap { animation: none; }
+
+/* ---------- arm and palm (positioned by JS) ---------- */
+/* the "portal cut": these wrappers never move; JS gives them a clip-path that hides everything
+   still inside the sky window, so the arm looks like it is coming out of it */
+.portal { position: absolute; inset: 0; pointer-events: none; }
+#armClip   { z-index: 2; }
+#thumbClip { z-index: 4; }
+#arm, #thumb {
+  position: absolute; left: 0; top: 0;
+  pointer-events: none; user-select: none;
+}
+#arm   { width: var(--arm-w); height: auto; }
+#thumb { width: calc(var(--arm-w) * 132 / 493); height: auto; }
+#arm[hidden], #thumb[hidden], #folder[hidden], #envelope[hidden], #done[hidden] { display: none; }
+
+/* ---------- the letter ---------- */
+#stage { position: relative; z-index: 3; width: min(100%, 440px); }
+
+.paper {
+  background: #fff; color: #000;
+  border: 5px solid #000; border-radius: 18px;
+  box-shadow: 5px 5px 0 #000;
+  padding: 22px 22px 24px;
+  box-sizing: border-box;
+  animation: paper-in 0.8s ease-out 0.7s both;
+}
+@keyframes paper-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+.paper h1 {
+  margin: 0 0 16px;
+  font-family: var(--font-display); font-weight: 800; font-size: 21px;
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.field { margin: 0 0 14px; }
+.field label { display: block; margin: 0 0 6px; font-weight: 600; font-size: 15px; }
+.field input, .field textarea {
+  display: block; width: 100%; box-sizing: border-box;
+  font-family: var(--font-body); font-weight: 500;
+  font-size: 16px;                 /* 16px stops iPhones zooming in on focus */
+  color: #000; background: #f2f2f2;
+  border: 3px solid #000; border-radius: 12px;
+  padding: 10px 12px;
+  resize: none;
+}
+.field input:focus, .field textarea:focus {
+  outline: none; background: #fff;
+  border-color: var(--accent); box-shadow: 3px 3px 0 #000;
+}
+.field input[aria-invalid="true"], .field textarea[aria-invalid="true"] { border-color: #d0003c; background: #fff2f5; }
+
+.trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+#formMsg { min-height: 1.3em; margin: 0 0 8px; font-weight: 600; font-size: 14.5px; line-height: 1.35; color: #c4002f; }
+#formMsg a { color: #000; }
+
+.send {
+  display: block; width: 100%;
+  padding: 12px 18px;
+  font-family: var(--font-display); font-weight: 800; font-size: 15px;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: #000; background: var(--accent);
+  border: 4px solid #000; border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.2s ease;
+}
+.send:hover { transform: translate(-2px, -2px); box-shadow: 3px 3px 0 #000; background: #fff; }
+.send:active { transform: none; box-shadow: none; }
+.send:disabled { opacity: 0.75; cursor: progress; transform: none; box-shadow: none; }
+.shake { animation: shake 0.35s ease; }
+@keyframes shake { 20% { transform: translateX(-6px); } 40% { transform: translateX(6px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(3px); } }
+
+/* ---------- folding paper: three strips that fold over each other ---------- */
+#folder {
+  position: absolute; left: 0; top: 0;
+  perspective: 1500px;
+  filter: drop-shadow(5px 5px 0 #000);
+  --scribble: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20400%20360%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M34%2034q7.0%20-9%2014.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200M34%2080q7.0%20-7%2014.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200M34%20112q7.0%20-7%2014.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200M34%20160q7.0%20-7%2014.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200M34%20196q7.0%20-7%2014.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200M34%20226q7.0%20-7%2014.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200M34%20280q7.0%20-7%2014.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200M34%20312q7.0%20-7%2014.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200M34%20342q7.0%20-7%2014.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200t14.0%200%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%225%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E");
+}
+#folder .panel {
+  position: absolute; left: 0; width: 100%;
+  box-sizing: border-box;
+  background-color: #fff;
+  background-image: var(--scribble);
+  background-size: 100% 300%;
+  border: 5px solid #000;
+}
+#folder .mid    { top: 33.2%; height: 33.7%; background-position: 0 50%; }
+#folder .bottom { top: 66.6%; height: 33.4%; background-position: 0 100%; transform-origin: 50% 0;   border-radius: 0 0 18px 18px; }
+#folder .top    { top: 0;     height: 33.4%; background-position: 0 0;    transform-origin: 50% 100%; border-radius: 18px 18px 0 0; }
+
+/* ---------- the envelope ---------- */
+#envelope {
+  position: absolute; left: 0; top: 0;
+  width: var(--env-w); height: auto;
+  transform-origin: 50% 0;          /* the hand holds it at the top edge */
+  filter: drop-shadow(3px 3px 0 #000);
+  overflow: visible;
+}
+
+/* ---------- after delivery ---------- */
+#done { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+#done h2 {
+  margin: 0 0 8px;
+  font-family: var(--font-display); font-weight: 800; font-size: 26px;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: #fff; -webkit-text-stroke: 6px #000; paint-order: stroke fill;
+}
+#done p { margin: 0 0 20px; font-size: 17px; font-weight: 500; opacity: 0.92; }
+.done-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+.pill {
+  display: inline-block; cursor: pointer;
+  padding: 10px 20px;
+  font-family: var(--font-display); font-weight: 800; font-size: 14px;
+  letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none;
+  color: #000; background: #fff;
+  border: 4px solid #000; border-radius: 999px;
+  transition: background 0.2s ease;
+}
+.pill:hover { background: var(--accent); }
+.pill.ghost { background: transparent; color: #fff; border-color: #fff; }
+.pill.ghost:hover { background: #fff; color: #000; }
+.fade-in { animation: fade-in 0.6s ease-out both; }
+@keyframes fade-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+#fallback { margin: 4px 0 0; font-size: 14px; opacity: 0.7; text-align: center; }
+#fallback a { color: #fff; }
+
+@media (max-width: 700px) {
+  #scene { gap: 24px; padding-top: 62px; }
+  .paper { padding: 18px 16px 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #scene, #skyWrap, .paper { animation: none; }
+}

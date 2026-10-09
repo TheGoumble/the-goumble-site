@@ -5,7 +5,7 @@
   z-index: 1;
   width: min(840px, 92vw);
   aspect-ratio: 1;
-  background: url("../assets/planet-about.svg") center / contain no-repeat;
+  background: url("../assets/about/planet-about.svg") center / contain no-repeat;
 }
 
 /* children position against #planet itself */
