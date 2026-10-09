@@ -2,8 +2,7 @@
    NAV
    ------------------------------------------------------------
    Owns: the nav links positioned as "windows" along the ship
-   hull (#navLinks), the phone placement of the satellite, and the
-   (unused now) hamburger toggle (#navToggle).
+   hull (#navLinks) and the phone placement of the satellite.
 
    Moves on its own: nothing animated here — links are static
    once placed. Only changes on click (active state).
@@ -16,7 +15,6 @@
 
 function initNav(navItems) {
   const container = document.getElementById('navLinks');
-  const toggle = document.getElementById('navToggle');
   container.innerHTML = '';
 
   navItems.forEach((item) => {
@@ -99,7 +97,4 @@ function initNav(navItems) {
     if (window.ResizeObserver) new ResizeObserver(placeSatellite).observe(heroTextEl);
     if (window.MutationObserver) new MutationObserver(placeSatellite).observe(heroTextEl, { childList: true, characterData: true, subtree: true });
   }
-
-  // the hamburger is no longer used (the ship is the menu on phones too), but keep it harmless if it exists
-  if (toggle) toggle.addEventListener('click', () => container.classList.toggle('closed'));
 }

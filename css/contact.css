@@ -22,4 +22,13 @@
   to   { transform: rotate(360deg); }
 }
 
-#contactLabel { margin-top: 40px; font-size: 15px; letter-spacing: 0.04em; }
+#contactLabel {
+  margin-top: 40px;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 800;
+  -webkit-text-stroke: 5px #000;
+  paint-order: stroke fill;
+}

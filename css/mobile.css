@@ -12,6 +12,7 @@
   width: min(900px, 100%);
   height: auto;              /* the page scrolls, not a box inside the page */
   overflow: hidden;
+  cursor: zoom-in;
 }
 .resume-viewer .pdf-canvases canvas { display: block; width: 100%; max-width: 100%; height: auto; }
 .resume-viewer .pdf-canvases canvas + canvas { border-top: 3px solid #000; }
@@ -31,7 +32,6 @@
   font-size: 14px;
   opacity: 0.8;
 }
-.resume-viewer.pdf-pages { cursor: zoom-in; }
 
 /* the full-screen zoomed view */
 .pdf-zoom {

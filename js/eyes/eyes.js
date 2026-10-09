@@ -20,7 +20,7 @@
    ============================================================ */
 
 function initEyes() {
-  if (window.__eyesStarted) return;          // safe to call twice (main.js and the auto-start below)
+  if (window.__eyesStarted) return;          // safe to call twice
   const hero = document.getElementById('hero');
   const character = document.getElementById('character');
   if (typeof EYE_PAIRS === 'undefined') { console.warn('[eyes] EYE_PAIRS is missing — is js/eyes-data.js loaded?'); return; }
@@ -298,7 +298,3 @@ function initEyes() {
     start();
   }
 }
-
-// start on its own, so it works even if main.js doesn't call initEyes()
-if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initEyes);
-else initEyes();

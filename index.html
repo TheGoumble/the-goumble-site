@@ -23,12 +23,22 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://thegoumble.com/assets/icons/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Rubik:wght@800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/nav.css">
+<link rel="stylesheet" href="css/hero.css">
+<link rel="stylesheet" href="css/about.css">
+<link rel="stylesheet" href="css/field.css">
+<link rel="stylesheet" href="css/resume.css">
+<link rel="stylesheet" href="css/contact.css">
+<link rel="stylesheet" href="css/mobile.css">
 </head>
 <body>
 
-<canvas id="starfield"></canvas>
+<canvas id="starfield" aria-hidden="true"></canvas>
 
 <nav id="shipnav">
   <img id="shipSvg" src="assets/ship.svg" alt="spaceship">
@@ -39,6 +49,7 @@
   </a>
 </nav>
 
+<main>
 <section id="hero">
   <div id="tetherLayer">
   <svg id="tetherSvg"><path id="tetherPath" d="" /></svg>
@@ -53,8 +64,8 @@
 </section>
 
 <section id="about">
-  <img class="bg-planet bg-planet-stars" src="assets/about/planet-stars.svg" alt="">
-  <img class="bg-planet bg-planet-maze" src="assets/about/planet-maze.svg" alt="">
+  <img class="bg-planet bg-planet-stars" loading="lazy" src="assets/about/planet-stars.svg" alt="">
+  <img class="bg-planet bg-planet-maze" loading="lazy" src="assets/about/planet-maze.svg" alt="">
   <div id="planet">
     <div id="planetContent">
       <img id="headshot" alt="Javier Andres Vargas" />
@@ -70,7 +81,6 @@
     <button id="fieldViewToggle" class="view-toggle" aria-pressed="false"
       aria-label="Switch between the asteroid view and a formal list">
       <span class="view-toggle-option view-toggle-option-left">asteroids</span>
-      <span class="view-toggle-track"><span class="view-toggle-thumb"></span></span>
       <span class="view-toggle-option view-toggle-option-right">formal</span>
     </button>
   </div>
@@ -105,9 +115,9 @@
   </div>
   <p id="contactLabel">click to send a transmission</p>
 </section>
+</main>
 
-<!-- load order matters: main.js calls functions defined in the others,
-     so those four must load first. Order among them doesn't matter. -->
+<!-- load order matters: main.js calls functions defined in the others, so it must load last. -->
 <script src="js/data.js"></script>
 <script src="js/starfield.js"></script>
 <script src="js/eyes/eyes.js"></script>

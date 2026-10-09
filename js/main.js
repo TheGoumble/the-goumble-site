@@ -14,7 +14,7 @@
 
    If you're looking for the code that actually MOVES something,
    it's not here — check starfield.js, tether.js, or field.js's
-   CSS-driven drift (style.css).
+   CSS-driven drift (css/field.css).
    ============================================================ */
 
 initStarfield();

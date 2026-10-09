@@ -1,7 +1,6 @@
 {
   "site": {
-    "title": "The Goumble | Javier Andres Vargas, Software Engineer",
-    "tagline": "Drifting through code and builds."
+    "title": "The Goumble | Javier Andres Vargas, Software Engineer"
   },
   "profile": {
     "name": "Javier Andres Vargas",
@@ -13,7 +12,7 @@
       "I like building the parts people don't see: APIs, real-time networking, and secure systems, from a Spring Boot streaming backend with per-session AES-256 encryption to a multiplayer game that pairs a cloud-hosted Express API with peer-to-peer TCP sockets.",
       "Outside of work you'll find me at game jams and hackathons, tinkering with my own tech, growing an endless music library, and messing with art."
     ],
-    "email": "3231javiervargas@gmail.com",
+    "email": "dev@thegoumble.com",
     "socials": [
       { "label": "GitHub", "url": "https://github.com/TheGoumble" },
       { "label": "LinkedIn", "url": "https://www.linkedin.com/in/javier-andres-vargas-58136a213" },
@@ -32,46 +31,41 @@
     {
       "name": "Secure Streaming Platform",
       "description": "Educational live video streaming platform with real-time chat. Video frames are encrypted client-side with unique per-session AES-256 keys (Web Crypto API) and relayed through a Java Spring Boot backend over WebSockets. Built with React and Spring Boot.",
-      "link": "https://github.com/TheGoumble/secure-streaming",
-      "size": "large"
+      "link": "https://github.com/TheGoumble/secure-streaming"
     },
     {
       "name": "Multiplayer Blackjack",
       "description": "JavaFX blackjack game with single-player vs. dealer AI and 1–4 player online multiplayer via game codes. Hybrid networking: an Express.js API on Google Cloud Run handles matchmaking and lobbies, while direct Java TCP peer-to-peer sockets handle live gameplay. Built with Java, JavaFX, Node.js, and Express.",
-      "link": "https://github.com/TheGoumble/COP4331-blackjack",
-      "size": "large"
+      "link": "https://github.com/TheGoumble/COP4331-blackjack"
     },
     {
       "name": "PeerSphere",
       "description": "Desktop app that helps college students form study groups, share notes, build flashcards, and organize review sessions. Electron + JavaScript client backed by a Java service layer (models, DAOs, services) on MySQL 8.",
-      "link": "https://github.com/TheGoumble/peersphere-backend",
-      "size": "small"
+      "link": "https://github.com/TheGoumble/peersphere-backend"
     },
     {
       "name": "Meta Beanie",
       "description": "Community platform where gamers discuss strategies. React and Bootstrap front end deployed on Firebase, with an Express + Node.js API backed by MongoDB.",
-      "link": "https://github.com/TheGoumble/final-project-react",
-      "size": "small"
+      "link": "https://github.com/TheGoumble/final-project-react"
     },
     {
       "name": "GMTK Game Jam 2023",
       "description": "Game built under a tight deadline for the 2023 GMTK Game Jam.",
-      "link": "https://github.com/TheGoumble/GMTK-2023",
-      "size": "small"
+      "link": "https://github.com/TheGoumble/GMTK-2023"
     }
   ],
   "skills": [
-    { "name": "JavaScript", "size": "small" },
-    { "name": "TypeScript", "size": "small" },
-    { "name": "Java", "size": "small" },
-    { "name": "Python", "size": "small" },
-    { "name": "React", "size": "small" },
-    { "name": "Node.js", "size": "small" },
-    { "name": "Express", "size": "small" },
-    { "name": "Spring Boot", "size": "small" },
-    { "name": "MongoDB", "size": "small" },
-    { "name": "MySQL", "size": "small" },
-    { "name": "AWS", "size": "small" },
-    { "name": "Git", "size": "small" }
+    { "name": "JavaScript" },
+    { "name": "TypeScript" },
+    { "name": "Java" },
+    { "name": "Python" },
+    { "name": "React" },
+    { "name": "Node.js" },
+    { "name": "Express" },
+    { "name": "Spring Boot" },
+    { "name": "MongoDB" },
+    { "name": "MySQL" },
+    { "name": "AWS" },
+    { "name": "Git" }
   ]
  }

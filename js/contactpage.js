@@ -125,7 +125,6 @@
     anims.push(a);
     return a.finished.catch(() => {});
   }
-  const rel = (r, base) => ({ x: r.left - base.left, y: r.top - base.top, w: r.width, h: r.height });
 
   async function deliver() {
     if (reduceMotion) return showDone();

@@ -51,7 +51,7 @@
 }
 .view-toggle[aria-pressed="true"]::before { transform: translateX(100%); }
 
-.view-toggle-track { display: none; }   /* old switch track, no longer used */
+   /* old switch track, no longer used */
 
 .view-toggle-option {
   position: relative;
@@ -269,13 +269,4 @@
   }
   .rock { position: relative; left: auto; top: auto; margin: 0; --s: 150px !important; font-size: 14px; }
   .rock-3 { --s: 170px !important; }
-}
-
-/* the contact label shares the outlined-text look */
-#contactLabel {
-  color: #fff;
-  font-family: var(--font-display);
-  font-weight: 800;
-  -webkit-text-stroke: 5px #000;
-  paint-order: stroke fill;
 }

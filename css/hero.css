@@ -54,7 +54,6 @@
 
 #heroName {
   font-size: clamp(32px, 6vw, 56px);
-  font-weight: 800;
   margin: 0;
   font-family: var(--font-display);
   font-weight: 800;
