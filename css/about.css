@@ -1,85 +1,62 @@
-/* ABOUT — planet placeholder, bio */
-/* ---------- ABOUT / PLANET ----------
-   #planet is a stand-in for a custom planet graphic (image/SVG) that
-   will replace this CSS circle later. Styled as a rough placeholder —
-   dashed border, flat striped fill, labeled — so it's obvious this spot
-   still needs the real asset. Swap the background (and drop the ::after
-   label) once that graphic exists; #planetRing and #planetContent (bio
-   text, headshot, icon) are real and don't need to change. */
+/* ABOUT — planet with the bio written in its open middle
+   (on phones it becomes a rounded card, see mobile.css) */
 #planet {
   position: relative;
-  width: min(480px, 85vw);
+  z-index: 1;
+  width: min(840px, 92vw);
+  aspect-ratio: 1;
+  background: url("../assets/planet-about.svg") center / contain no-repeat;
+}
+
+/* children position against #planet itself */
+#planetContent { display: contents; }
+
+/* bio sits in the open middle of the drawing, clear of the pink ribbons */
+#bioText {
+  position: absolute;
+  left: 47%;
+  top: 53%;
+  width: 38%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.42;
+  color: #000;
+}
+#bioText p { margin: 0 0 0.7em; }
+#bioText p:last-child { margin-bottom: 0; }
+
+/* headshot rides the planet's rim like a little moon */
+#headshot {
+  position: absolute;
+  left: 1%;
+  bottom: 8%;
+  width: 22%;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: repeating-linear-gradient(
-    45deg,
-    rgba(var(--accent2-rgb), 0.08) 0 10px,
-    rgba(255, 255, 255, 0.03) 10px 20px
-  );
-  border: 2px dashed rgba(var(--accent2-rgb), 0.45);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#planet::after {
-  content: "planet graphic — placeholder";
-  position: absolute;
-  top: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 11px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: rgba(var(--accent2-rgb), 0.6);
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-#planetRing {
-  position: absolute;
-  width: 135%;
-  height: 32%;
-  border: 2px solid rgba(var(--accent-rgb), 0.3);
-  border-radius: 50%;
-  transform: rotate(-12deg);
-  pointer-events: none;
-}
-
-#planetContent {
-  width: 72%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-#headshot {
-  width: 84px; height: 84px;
-  border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--accent);
+  border: 8px solid #000;
   background: #222;
 }
 
 #icon {
-  width: 28px; height: 28px;
+  position: absolute;
+  left: 22%;
+  bottom: 2%;
+  width: 12%;
+  aspect-ratio: 1;
   border-radius: 50%;
+  border: 6px solid #000;
   background: #333;
 }
 
-#bioText {
-  font-size: 13px;
-  color: var(--text-dim);
-  line-height: 1.6;
-}
-#bioText p { margin: 0 0 0.8em; }
-#bioText p:last-child { margin-bottom: 0; }
-
 /* ---------- BACKGROUND PLANETS ----------
    two smaller decorative planets drifting behind the main one */
-#about { overflow: hidden; }
+#about {
+  overflow: hidden;
+  padding: 120px 16px 160px;
+}
 
 .bg-planet {
   position: absolute;
@@ -91,20 +68,18 @@
 }
 
 .bg-planet-stars {
-  width: clamp(110px, 19vw, 280px);
-  left: 7%;
-  top: 9%;
+  width: clamp(100px, 14vw, 210px);
+  left: 3%;
+  top: 5%;
 }
 
 .bg-planet-maze {
-  width: clamp(130px, 23vw, 340px);
-  right: 5%;
-  bottom: 7%;
+  width: clamp(110px, 15vw, 230px);
+  right: 2%;
+  bottom: 4%;
   animation-duration: 18s;
   animation-delay: -6s;
 }
-
-#planet { z-index: 1; }
 
 @keyframes planet-float {
   0%, 100% { transform: translateY(0) rotate(0deg); }
