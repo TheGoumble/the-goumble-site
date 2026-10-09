@@ -25,6 +25,20 @@ function loadData(onReady) {
       headshotEl.src = data.profile.headshot;
       iconEl.src = data.profile.icon;
 
+      // social links under the black hole
+      const socials = document.getElementById('socials');
+      (data.profile.socials || []).forEach(s => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.className = 'resume-btn';
+        a.href = s.url;
+        a.textContent = s.label;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        li.appendChild(a);
+        socials.appendChild(li);
+      });
+
       onReady(data);
     })
     .catch(err => {

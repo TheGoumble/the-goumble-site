@@ -32,3 +32,15 @@
   -webkit-text-stroke: 5px #000;
   paint-order: stroke fill;
 }
+
+/* social links: same pill as the resume button */
+#socials {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 28px 0 48px;
+  padding: 0;
+  list-style: none;
+}
+#socials .resume-btn { font-size: 13px; padding: 6px 16px; }

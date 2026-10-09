@@ -1,0 +1,9 @@
+# Store text files with LF in the repo no matter which OS edits them,
+# so Windows (CRLF) doesn't show every line as changed.
+* text=auto eol=lf
+
+# Binary files: never touch line endings
+*.png  binary
+*.jpg  binary
+*.ico  binary
+*.pdf  binary
